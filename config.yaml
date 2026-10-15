@@ -4,6 +4,7 @@
 # Where files are stored (relative to project root)
 paths:
   raw_include: data/raw/include   # downloaded INCLUDE videos
+  include_zips: data/raw/include/zips  # whole INCLUDE zips downloaded manually (optional)
   raw_custom: data/raw/custom     # my own recorded clips
   keypoints: data/keypoints       # extracted landmarks, one .npy per video
   reports: reports                # metrics, plots, confusion matrices
@@ -34,6 +35,9 @@ keypoints:
     left_wrist: 15
     right_wrist: 16
   use_presence_flags: true  # add a 0/1 flag per hand: 1 = hand seen, 0 = missing (zeros)
+  model_complexity: 1       # MediaPipe Holistic model size: 0 = fast, 1 = balanced, 2 = accurate
+  min_detection_conf: 0.5   # how sure MediaPipe must be to start tracking a hand/body
+  min_tracking_conf: 0.5    # how sure it must be to keep tracking between frames
 
 # Training-time data augmentation (random, small changes so the model generalises)
 augment:

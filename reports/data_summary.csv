@@ -1,0 +1,51 @@
+source,word,train,test,downloaded,custom_clips,signers
+include,bank,14,6,22,0,0
+include,big large,15,4,21,0,0
+include,bird,22,1,25,0,0
+include,black,14,5,20,0,0
+include,boy,15,4,21,0,0
+include,brother,14,5,21,0,0
+include,car,14,4,20,0,0
+include,cell phone,9,4,14,0,0
+include,court,18,3,23,0,0
+include,cow,16,3,21,0,0
+include,death,8,5,14,0,0
+include,dog,12,7,20,0,0
+include,dry,19,0,21,0,0
+include,election,11,2,14,0,0
+include,fall,11,3,15,0,0
+include,fan,11,3,15,0,0
+include,father,16,2,20,0,0
+include,girl,16,2,20,0,0
+include,good,16,3,21,0,0
+include,good morning,15,4,21,0,0
+include,happy,16,3,21,0,0
+include,hat,13,6,20,0,0
+include,hello,13,7,21,0,0
+include,hot,14,6,21,0,0
+include,house,18,1,21,0,0
+include,i,16,3,21,0,0
+include,it,11,9,21,0,0
+include,long,14,6,21,0,0
+include,loud,13,6,21,0,0
+include,monday,11,2,14,0,0
+include,new,16,3,21,0,0
+include,paint,11,3,15,0,0
+include,pen,11,2,14,0,0
+include,priest,13,1,15,0,0
+include,quiet,16,3,21,0,0
+include,red,16,2,20,0,0
+include,shoes,14,4,20,0,0
+include,short,14,6,22,0,0
+include,small little,16,4,22,0,0
+include,store or shop,16,4,22,0,0
+include,summer,10,3,14,0,0
+include,t-shirt,15,3,20,0,0
+include,teacher,10,3,14,0,0
+include,thank you,13,7,21,0,0
+include,time,11,3,15,0,0
+include,train ticket,12,8,21,0,0
+include,white,17,1,20,0,0
+include,window,10,3,14,0,0
+include,year,7,7,15,0,0
+include,you (plural),16,3,21,0,0
