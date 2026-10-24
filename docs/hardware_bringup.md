@@ -1,5 +1,7 @@
 # Hardware bring-up — test every part before building the glasses
 
+**Printable step-by-step guide with diagrams:** [hardware_bringup.pdf](hardware_bringup.pdf) (source `docs/guide/bringup.html`, rebuild with `sh docs/guide/build_pdf.sh`).
+
 Branch: `testout`. Do the steps in order. Each one has a pass/fail check.
 Write your result in the table at the bottom and in today's `docs/handoff/YYYY-MM-DD.md`.
 
