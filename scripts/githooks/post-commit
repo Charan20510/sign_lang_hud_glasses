@@ -1,0 +1,16 @@
+#!/bin/sh
+# Append every commit to today's handoff log: docs/handoff/YYYY-MM-DD.md
+# Creates the day file (and its README index line) if it doesn't exist yet.
+# The log edit is left uncommitted; it rides along with the next commit.
+cd "$(git rev-parse --show-toplevel)" || exit 0
+dir=docs/handoff
+day=$(date +%F)
+file="$dir/$day.md"
+
+if [ ! -f "$file" ]; then
+    printf '# %s\n\nBranch: %s\n\n## Done\n\n## Issues\n\n## Fixes\n\n## Next\n\n## Commits\n' \
+        "$day" "$(git branch --show-current)" > "$file"
+    echo "- [$day]($day.md)" >> "$dir/README.md"
+fi
+
+echo "- $(date +%H:%M) \`$(git rev-parse --short HEAD)\` $(git log -1 --format=%s)" >> "$file"
