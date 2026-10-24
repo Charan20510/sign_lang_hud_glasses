@@ -11,17 +11,19 @@ Do **not** connect any LiPo during these tests (batteries haven't arrived, and t
 2. Multimeter **continuity** (diode/beep symbol): touch both probes together → beep. That's your "is it connected?" test.
 3. Multimeter **DC volts** (V⎓, 20 V range): plug the ESP32-C3 into the Mac with the Type-C cable. Black probe on a `G` pin, red on `5V` → ~5.0 V. Red on `3V3` → ~3.3 V.
 
-**Pass:** beep works, 5V ≈ 4.8–5.2 V, 3V3 ≈ 3.2–3.4 V. (Pins aren't soldered yet — just touch the pads gently.)
+**Pass:** beep works, 5V ≈ 4.8–5.2 V, 3V3 ≈ 3.2–3.4 V. (No pins yet — just touch the pads gently.)
 
-## Step 2 — Solder headers (ESP32-C3 #1 only; keep #2 as a spare)
-**Goal:** straight, clean header pins so the board fits the breadboard.
-1. Snap two 8-pin pieces off the 40×1 / 40×2 male berg strip (SuperMini has 2 rows of 8).
-2. Push them into the breadboard (long side down), lay the ESP32-C3 on top, components facing up. The breadboard holds them straight.
-3. Iron at ~330 °C, a little flux. Touch iron to pad + pin together 1 s, feed solder, remove solder, then iron. Shiny cone = good; ball = reheat.
-4. OLED: if its 4 pins aren't already soldered, do the same.
-5. Continuity check every **neighbouring** pin pair → must **not** beep (no solder bridges).
+## Step 2 — No-solder breadboard setup (friction-fit)
+**Goal:** sit the ESP32-C3 on the breadboard without soldering. Soldering comes last (see "Final build").
+The SuperMini has bare holes, so it needs pins under it to reach the breadboard.
+1. Break two 8-pin pieces off the male berg strip.
+2. Push both pieces into the breadboard, long side down, one on each side of the middle gap. Spacing = the ESP32-C3's two rows of holes.
+3. Press ESP32-C3 #1 down onto the pins (USB-C port pointing out of the breadboard edge).
+4. Tilt it very slightly so the pins press against the sides of the holes.
+5. OLED: if its 4 pins are already soldered, it plugs straight in. If they're loose, use the same trick.
 
-**Pass:** all pins shiny cones, no beep between neighbours.
+**Pass:** Step 3 (`t1_blink`) uploads and runs while the board sits on the pins.
+**Tip:** random resets, upload errors or "no I2C devices" → press the board down first, before debugging code.
 
 ## Step 3 — ESP32-C3 alive (`firmware/tests/t1_blink`)
 **Setup once:**
@@ -78,11 +80,21 @@ Wiring on the breadboard (USB still powers everything):
 
 **Before the LiPos arrive (safety):** the TP4056 charges at **1 A** (PROG resistor `R3`, marked `122` = 1.2 kΩ). Your LiPo is 500 mAh → 1 A is 2C, too much. Change it to **~2.4 kΩ (≈ 500 mA)**: desolder the `122` SMD resistor and solder a 2.2–2.4 kΩ resistor between the PROG pad and GND (a through-hole one is easier). Measure it with the meter (Ω mode) before use.
 
+## Final build — soldering (later)
+Do this once all parts have arrived and every test above passes.
+1. Push the 8-pin pieces into the breadboard, lay the ESP32-C3 on top, components facing up. The breadboard holds them straight.
+2. Iron at ~330 °C, a little flux. Touch iron to pad + pin together 1 s, feed solder, remove solder, then iron. Shiny cone = good; ball = reheat.
+3. OLED: if its 4 pins aren't soldered, do the same.
+4. Continuity check every **neighbouring** pin pair → must **not** beep (no solder bridges).
+
+**Pass:** all pins shiny cones, no beep between neighbours. Re-run Step 3 + 4 after soldering.
+
 ## Results
+All tests below use friction-fit headers (no solder) until the final build.
 | # | Part | Test | Result (✅/❌ + note) | Date |
 |---|---|---|---|---|
-| 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | | |
-| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | | |
+| 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending) | 2026-10-24 |
+| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending) | 2026-10-24 |
 | 3 | OLED #1 | I2C 0x3C, HELLO, mirror | | |
 | 4 | OLED #2 | I2C 0x3C, HELLO | | |
 | 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | | |
