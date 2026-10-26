@@ -66,7 +66,7 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 - `hud_glasses_drawings.pdf` + 2 PNGs — side view with dimensions, optics math, wiring diagram, cut templates
 
 ## 8. Open to-dos
-1. Hardware bring-up of parts in hand → `docs/hardware_bringup.md` (branch `testout`).
+1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF): Steps 1–6 ✅ by 2026-10-25 (volts, blink, OLED 0x3C, Wi-Fi, Mac → OLED over UDP). Left: Step 7 TP4056 + switches, board #2 / OLED #2, soldering at final build.
 2. Change TP4056 PROG resistor (~2.4 kΩ ≈ 500 mA) BEFORE first LiPo charge.
 3. Get mirror piece locally.
 4. When LiPo/lens/acrylic arrive: power from battery, build housing, full `glasses_display.ino`.

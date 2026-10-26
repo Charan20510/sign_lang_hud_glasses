@@ -69,6 +69,6 @@ void loop() {
     len = udp.read(packet, sizeof(packet) - 1);
     packet[len] = '\0';
     Serial.printf("got: %s\n", packet);
-    show(jsonText(String(packet)), "from " + udp.remoteIP().toString());
+    show(jsonText(String(packet)), "");    // only the word, no sender IP
   }
 }

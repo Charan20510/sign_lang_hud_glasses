@@ -7,7 +7,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#define MIRROR_X 0
+#define MIRROR_X 1
 
 const int SDA_PIN = 8;
 const int SCL_PIN = 9;

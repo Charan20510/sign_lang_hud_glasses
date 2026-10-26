@@ -95,13 +95,13 @@ Do this once all parts have arrived and every test above passes.
 All tests below use friction-fit headers (no solder) until the final build.
 | # | Part | Test | Result (✅/❌ + note) | Date |
 |---|---|---|---|---|
-| 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending) | 2026-10-24 |
+| 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V; ✅ blink + serial | 2026-10-25 |
 | 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending) | 2026-10-24 |
-| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | | |
+| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | ✅ 0x3C, text + bitmap shown (mirror not checked) | 2026-10-25 |
 | 4 | OLED #2 | I2C 0x3C, HELLO | | |
-| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | | |
+| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | ✅ via IP 10.249.236.231 (glasses.local not tried) | 2026-10-25 |
 | 6 | TP4056 #1 | B+ ≈ 4.2 V | | |
 | 7 | TP4056 #2 | B+ ≈ 4.2 V | | |
 | 8 | Slide switch ×3 | continuity swap | | |
-| 9 | Type-C cable | data (upload works) | | |
-| 10 | Breadboard / jumpers | used in steps 4–6 without faults | | |
+| 9 | Type-C cable | data (upload works) | ✅ | 2026-10-25 |
+| 10 | Breadboard / jumpers | used in steps 4–6 without faults | ✅ after wiring fix | 2026-10-25 |
