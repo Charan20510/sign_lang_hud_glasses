@@ -40,6 +40,8 @@
   .tick { font-size: 14px; }
   svg text { font-family: "Space Mono", monospace; }
   .muted { color: #666; }
+  table.tight { font-size: 11px; }
+  table.tight td, table.tight th { padding: 1px 5px; }
 </style>
 </head>
 <body>
@@ -48,11 +50,14 @@
 <section class="first">
 <h1>Sign-Language HUD Glasses</h1>
 <p><b>Hardware bring-up guide: test every part before building.</b></p>
-<p class="muted">Branch <code>testout</code> · 2026-10-24 · Charan · Pictures are drawn diagrams, not photos.</p>
+<p class="muted">Branch <code>testout</code> · 2026-10-24, updated 2026-10-29 · Charan · Pictures are drawn diagrams, not photos.</p>
+
+<h3>Where you are</h3>
+<p>Steps 1–6 ✅ done. <b>Next: Step 7</b> (chargers, USB only), then <b>Step 9</b> (solder battery wires) and <b>Step 10</b> (run on battery). Charging = bench DC supply only (Step 8).</p>
 
 <h3>How to use this guide</h3>
 <ol>
-  <li>Do the steps in order: 1 → 9.</li>
+  <li>Do the steps in order: 1 → 15.</li>
   <li>Do one small action at a time.</li>
   <li>Check the green <b>Done when</b> box before moving on.</li>
   <li>If something fails, read the orange <b>If it fails</b> box.</li>
@@ -61,10 +66,12 @@
 
 <div class="box warn"><b>⚠ Safety: read first</b>
 <ul>
-  <li><b>No LiPo battery</b> anywhere during these tests. The batteries haven't arrived, and the TP4056 needs a resistor change first (Step 7).</li>
+  <li><b>Never plug USB into a TP4056 that has a LiPo on it.</b> Stock board charges at 1 A, too much for 600 mAh. Charge only with the bench supply (Step 8).</li>
+  <li><b>Never hold battery wires on the pads by hand.</b> Solder them (Step 9). A slip shorts the battery directly.</li>
+  <li>Keep the LiPo's red and black wire ends apart. Never let them touch.</li>
   <li>Meter red lead for volts goes in <b>Input HI (VΩ)</b>, never the <b>10A</b> jack.</li>
   <li>Don't let the two meter probes touch each other while a board is powered.</li>
-  <li>Soldering iron (later, Step 8) is ~330 °C. Always put it back in its stand.</li>
+  <li>Soldering iron (Steps 9, 13) is ~330 °C. Always put it back in its stand.</li>
 </ul></div>
 
 <h3>Parts</h3>
@@ -75,22 +82,18 @@
   <li>ESP32-C3 SuperMini ×2</li>
   <li>0.96" OLED SSD1306 ×2 (4-pin I2C)</li>
   <li>TP4056 Type-C charger ×2</li>
-  <li>Slide switch ×3</li>
-  <li>Veroboard 6×4 ×2</li>
-  <li>Male pin strip 40×2, female 40×1</li>
-  <li>Type-C cable</li>
-  <li>MB102 breadboard</li>
-  <li>Jumper wires</li>
-  <li>Soldering kit + multimeter</li>
+  <li>Slide switch ×3, veroboard 6×4 ×2</li>
+  <li>Pin strips, MB102 breadboard, jumpers</li>
+  <li>Type-C cable, soldering kit + meter</li>
+  <li>LiPo 3.7 V 600 mAh ×2 (KP 602030P)</li>
+  <li>25 mm lens (f 45), 1 mm acrylic</li>
 </ul>
 </div>
 <div>
-<p><b>On the way 🚚</b></p>
+<p><b>Still to get 🛒</b></p>
 <ul>
-  <li>LiPo 3.7 V 500 mAh ×2</li>
-  <li>25 mm lens (f 45 mm)</li>
-  <li>1 mm acrylic sheets</li>
-  <li>Mirror piece (local shop)</li>
+  <li>Mirror piece 25 × 30 mm (local glass shop)</li>
+  <li>Heat-shrink or insulating tape</li>
 </ul>
 <p><b>Stretch (later)</b></p>
 <ul>
@@ -174,8 +177,8 @@ No reading → try another USB port or cable.</div>
 
 <!-- ================= STEP 2 ================= -->
 <section>
-<h2>Step 2: Put the ESP32-C3 on the breadboard (no solder)</h2>
-<p class="goal">Goal: the board sits on pins in the breadboard without soldering. Soldering comes at the very end (Step 8).</p>
+<h2>Step 2: Put the ESP32-C3 on the breadboard (no solder) <span class="stamp">✅ DONE</span></h2>
+<p class="goal">Goal: the board sits on pins in the breadboard without soldering. Soldering comes at the very end (Step 13).</p>
 
 <h3>2a. Snap the pins <span class="stamp">✅ DONE</span></h3>
 <figure>
@@ -271,7 +274,7 @@ Random resets, upload errors or "no I2C devices" → <b>press the board down fir
 
 <!-- ================= STEP 3 ================= -->
 <section>
-<h2>Step 3: Is the ESP32-C3 alive? (blink)</h2>
+<h2>Step 3: Is the ESP32-C3 alive? (blink) <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: upload the first program and see the LED blink. Sketch: <code>firmware/tests/t1_blink</code></p>
 
 <h3>3a. One-time setup</h3>
@@ -334,7 +337,7 @@ Random disconnects → press the board down (friction fit).</div>
 
 <!-- ================= STEP 4 ================= -->
 <section>
-<h2>Step 4: Connect the OLED screen</h2>
+<h2>Step 4: Connect the OLED screen <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: the ESP32-C3 finds the OLED, then shows text on it.</p>
 
 <figure>
@@ -426,7 +429,7 @@ Screen blank but scan OK → Adafruit SSD1306 library missing or wrong address.<
 
 <!-- ================= STEP 5 ================= -->
 <section>
-<h2>Step 5: Connect the ESP32-C3 to Wi-Fi</h2>
+<h2>Step 5: Connect the ESP32-C3 to Wi-Fi <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: the glasses board joins your phone hotspot and shows its IP address. Sketch: <code>firmware/tests/t4_wifi_udp</code></p>
 
 <h3>5a. Phone hotspot</h3>
@@ -476,7 +479,7 @@ The SuperMini antenna is weak; keep the phone within 1–2 m.</div>
 
 <!-- ================= STEP 6 ================= -->
 <section>
-<h2>Step 6: Send a word from the Mac to the OLED</h2>
+<h2>Step 6: Send a word from the Mac to the OLED <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: a word typed on the laptop shows up on the glasses screen. This is the same link the sign recogniser will use.</p>
 
 <figure>
@@ -531,6 +534,9 @@ IP works but <code>glasses.local</code> doesn't → fine for now, use the IP and
 <section>
 <h2>Step 7: Test the chargers and switches (USB only)</h2>
 <p class="goal">Goal: both TP4056 chargers and all 3 slide switches work. <b>No battery.</b></p>
+<div class="box warn"><b>⚠ LiPo already on the charger? (red LED on)</b>
+1. Unplug the USB-C cable. 2. Take the battery wires off the pads and keep red and black apart.
+3. Touch the cell: warm or puffy → put it aside on a tile and don't use it. Cool and flat → OK, wait for Step 9.</div>
 
 <figure>
 <svg viewBox="0 0 640 200" width="640">
@@ -548,7 +554,7 @@ IP works but <code>glasses.local</code> doesn't → fine for now, use the IP and
   <rect x="440" y="60" width="150" height="80" rx="6" fill="#e9e6df" stroke="#888"/>
   <text x="515" y="98" text-anchor="middle" font-size="18" font-weight="700">4.2 V</text>
   <text x="515" y="122" text-anchor="middle" font-size="10">DCV on B+ / B−</text>
-  <text x="20" y="190" font-size="10" fill="#b91c1c">R3 sets charge current: 1.2 kΩ = 1 A (too high for 500 mAh)</text>
+  <text x="20" y="190" font-size="10" fill="#b91c1c">R3 sets charge current: 1.2 kΩ = 1 A (too high for 600 mAh, we charge with a bench supply instead)</text>
 </svg>
 <figcaption>Diagram: measure B+ (red) and B− (black) with only USB plugged in.</figcaption>
 </figure>
@@ -584,16 +590,218 @@ IP works but <code>glasses.local</code> doesn't → fine for now, use the IP and
 
 <div class="box done"><b>Done when</b>
 B+ reads 4.1–4.25 V on both chargers, and every switch swaps sides when flipped.</div>
-<div class="box warn"><b>⚠ Before the LiPo batteries arrive</b>
-Resistor <b>R3</b> (marked <code>122</code> = 1.2 kΩ) makes the TP4056 charge at <b>1 A</b>. That's too much for a 500 mAh LiPo.
-Change it to <b>~2.4 kΩ (≈ 500 mA)</b>: remove the <code>122</code> part and put a 2.2–2.4 kΩ resistor between the PROG pad and GND.
-Measure it in Ω mode before use. Ask for help with this step; it's fiddly.</div>
+<div class="box fail"><b>If it fails</b>
+B+ reads 0 V → bad USB cable or dead board, try the other cable. B+ above 4.3 V → don't use that board for charging.</div>
+<p><b>Next:</b> Step 9 (solder battery wires). Charging is done with the bench supply (Step 8), never through this board's USB.</p>
 </section>
 
 <!-- ================= STEP 8 ================= -->
 <section>
-<h2>Step 8: Final build: soldering <span class="stamp later">LATER</span></h2>
-<p class="goal">Goal: permanent, clean pins. Do this only after every test above passes and all parts have arrived.</p>
+<h2>Step 8: Charge the LiPo with the bench DC supply</h2>
+<p class="goal">Goal: charge safely at 0.3 A / 4.20 V (CC/CV) without changing the TP4056. Only needed when the cell is below ~3.9 V.</p>
+
+<figure>
+<svg viewBox="0 0 640 190" width="640">
+  <rect x="30" y="30" width="220" height="130" rx="8" fill="#e9e6df" stroke="#888"/>
+  <text x="140" y="22" text-anchor="middle" font-size="12" font-weight="700">Bench DC supply</text>
+  <rect x="50" y="45" width="180" height="50" rx="4" fill="#111"/>
+  <text x="95" y="78" text-anchor="middle" font-size="18" font-weight="700" fill="#7dd3fc">4.20V</text>
+  <text x="185" y="78" text-anchor="middle" font-size="18" font-weight="700" fill="#fca5a5">0.30A</text>
+  <circle cx="90" cy="125" r="12" fill="#d62828"/><text x="90" y="129" text-anchor="middle" font-size="10" fill="#fff">+</text>
+  <circle cx="190" cy="125" r="12" fill="#222"/><text x="190" y="129" text-anchor="middle" font-size="10" fill="#fff">−</text>
+  <path d="M90 137 C 90 175, 300 175, 400 95" stroke="#d62828" stroke-width="4" fill="none"/>
+  <path d="M190 137 C 190 160, 300 160, 400 120" stroke="#222" stroke-width="4" fill="none"/>
+  <rect x="400" y="70" width="170" height="70" rx="8" fill="#c0c0c0" stroke="#777"/>
+  <text x="485" y="100" text-anchor="middle" font-size="12" font-weight="700">LiPo 600 mAh</text>
+  <text x="485" y="118" text-anchor="middle" font-size="10">red + · black −</text>
+  <text x="330" y="40" font-size="10">Set V and A with leads OFF the battery.</text>
+  <text x="330" y="54" font-size="10" fill="#b91c1c">Never above 4.20 V or 0.6 A.</text>
+</svg>
+<figcaption>Diagram: supply + → battery red (or the B+ pad), supply − → battery black (or B−).</figcaption>
+</figure>
+
+<div class="box warn"><b>⚠ Only a lab supply with BOTH a voltage and a current knob</b>
+A phone adapter, fixed 5 V supply or USB port wired straight to the battery = overcharge and fire. Never.</div>
+
+<ol>
+  <li>Measure the cell. <b>3.9 V or more → skip, no charge needed.</b> Below 3.0 V → use 0.05 A until it passes 3.0 V.</li>
+  <li>Leads <b>not</b> on the battery. Supply ON. Set <b>4.20 V</b>. Check the leads with your meter: 4.18–4.20 V.</li>
+  <li>Touch the two leads together briefly and set the current limit to <b>0.30 A</b>.</li>
+  <li><b>OUTPUT OFF.</b></li>
+  <li>Clip red → battery red (or B+), black → battery black (or B−). Keep the clips apart. Cell on a tile.</li>
+  <li><b>OUTPUT ON.</b> Display shows ~0.30 A (CC lamp). Voltage climbs slowly.</li>
+  <li>Stay next to it. Touch the cell every 10 minutes. Warm → OUTPUT OFF, stop.</li>
+  <li>Near full the supply switches to CV and the current drops. At <b>0.03–0.05 A → OUTPUT OFF</b>, unclip. (~1.5–2.5 h from half full.)</li>
+  <li>Wait 5 min, measure: <b>4.15–4.20 V</b> = full.</li>
+</ol>
+
+<div class="box done"><b>Done when</b>
+Current tapered to ≤ 0.05 A, cell reads 4.15–4.20 V after resting, never got warm.</div>
+<div class="box fail"><b>If it fails</b>
+Current stays at 0 A → clip not touching, or OUTPUT is off. Current stays at 0.30 A for over 3 h → stop, check the voltage setting.
+Cell warm or puffy → stop and don't use that cell.</div>
+<p class="muted">Optional later: to charge through the TP4056's USB instead, replace its R3 (<code>122</code>, 1.2 kΩ = 1 A) with 2.2–2.4 kΩ (≈ 500 mA). Not needed with the bench supply.</p>
+</section>
+
+<!-- ================= STEP 9 ================= -->
+<section>
+<h2>Step 9: Solder the battery wires to the TP4056</h2>
+<p class="goal">Goal: LiPo soldered to B+/B− the right way round, and the TP4056 USB port blocked so it can never charge at 1 A.</p>
+
+<figure>
+<svg viewBox="0 0 640 170" width="640">
+  <rect x="30" y="50" width="170" height="80" rx="8" fill="#c0c0c0" stroke="#777"/>
+  <rect x="190" y="60" width="14" height="60" fill="#e5b830"/>
+  <text x="115" y="85" text-anchor="middle" font-size="12" font-weight="700">LiPo 600 mAh</text>
+  <text x="115" y="103" text-anchor="middle" font-size="10">3.7 V · KP 602030P</text>
+  <path d="M204 75 C 260 75, 280 70, 340 70" stroke="#d62828" stroke-width="4" fill="none"/>
+  <path d="M204 105 C 260 105, 280 110, 340 110" stroke="#222" stroke-width="4" fill="none"/>
+  <rect x="340" y="30" width="230" height="120" rx="6" fill="#1d4ed8"/>
+  <g fill="#d4a017"><rect x="340" y="62" width="22" height="14"/><rect x="340" y="102" width="22" height="14"/><rect x="548" y="50" width="22" height="14"/><rect x="548" y="116" width="22" height="14"/></g>
+  <g font-size="11" fill="#fff"><text x="370" y="74">B+</text><text x="370" y="114">B−</text><text x="500" y="62">OUT+</text><text x="500" y="128">OUT−</text></g>
+  <text x="455" y="95" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">TP4056</text>
+  <rect x="395" y="36" width="70" height="20" rx="3" fill="#fde047" stroke="#a16207"/>
+  <text x="430" y="50" text-anchor="middle" font-size="10" font-weight="700">NO USB</text>
+  <text x="270" y="60" text-anchor="middle" font-size="10" fill="#d62828">red → B+</text>
+  <text x="270" y="130" text-anchor="middle" font-size="10">black → B−</text>
+  <text x="20" y="165" font-size="10" fill="#b91c1c">Solder the wires. Never hold them on the pads by hand.</text>
+</svg>
+<figcaption>Diagram: battery on B+/B− only. The load (ESP32) goes on OUT+/OUT− in Step 10.</figcaption>
+</figure>
+
+<h3>9a. Check the cell</h3>
+<ol>
+  <li>Meter on DC volts. Red probe on the red wire end, black on the black wire end. Don't let the wire ends touch each other.</li>
+  <li><b>3.0–4.2 V</b> → OK. Below 3.0 V → charge it first with the bench supply (Step 8, 0.05 A start).</li>
+  <li>Cell must be flat, not puffy, not dented.</li>
+</ol>
+
+<h3>9b. Solder the wires</h3>
+<ol>
+  <li>Charger USB unplugged. Do <b>one wire at a time</b> so the two ends can never touch.</li>
+  <li>Tin the B+ pad. Tin the red wire end. Hold the wire on the pad, touch the iron 1–2 s. Same for black → B−.</li>
+  <li>Don't heat the battery itself. Keep the iron on the pad, not the cell.</li>
+  <li>Check again: red goes to <b>B+</b>, black goes to <b>B−</b>. Wrong way round can kill the board or heat the cell.</li>
+  <li>Put tape over the joints.</li>
+</ol>
+
+<h3>9c. Block the USB port</h3>
+<ol>
+  <li>Put tape over the TP4056 USB-C port. Write <b>NO USB</b> on it.</li>
+  <li>Measure OUT+/OUT− → ≈ battery voltage. (0 V → the protection chip is asleep; see Step 10 "If it fails".)</li>
+  <li>To charge later: leave the cell soldered, clip the bench supply to <b>B+/B−</b> (Step 8).</li>
+  <li>Repeat 9a–9c for LiPo #2 on TP4056 #2.</li>
+</ol>
+
+<div class="box done"><b>Done when</b>
+Both cells soldered red → B+, black → B−, joints taped, USB ports taped "NO USB".</div>
+<div class="box fail"><b>If it fails</b>
+Wire came off → re-tin pad and wire. Board got hot while soldering a cell → unsolder, check the cell isn't puffy.</div>
+</section>
+
+<!-- ================= STEP 10 ================= -->
+<section>
+<h2>Step 10: Run the ESP32-C3 from the battery</h2>
+<p class="goal">Goal: the glasses electronics work with no USB cable: battery → charger → switch → ESP32-C3 → OLED.</p>
+
+<figure>
+<svg viewBox="0 0 640 190" width="640">
+  <rect x="10" y="60" width="90" height="60" rx="6" fill="#c0c0c0" stroke="#777"/><text x="55" y="95" text-anchor="middle" font-size="11" font-weight="700">LiPo</text>
+  <path d="M100 75 L 130 75" stroke="#d62828" stroke-width="3"/><path d="M100 105 L 130 105" stroke="#222" stroke-width="3"/>
+  <rect x="130" y="50" width="120" height="80" rx="6" fill="#1d4ed8"/><text x="190" y="94" text-anchor="middle" font-size="11" font-weight="700" fill="#fff">TP4056</text>
+  <g font-size="9" fill="#fff"><text x="134" y="72">B+</text><text x="134" y="112">B−</text><text x="212" y="66">OUT+</text><text x="212" y="124">OUT−</text></g>
+  <!-- switch -->
+  <rect x="290" y="20" width="90" height="30" rx="4" fill="#9ca3af" stroke="#555"/><text x="335" y="15" text-anchor="middle" font-size="10">slide switch</text>
+  <g fill="#d4a017"><rect x="300" y="50" width="5" height="12"/><rect x="333" y="50" width="5" height="12"/><rect x="366" y="50" width="5" height="12"/></g>
+  <path d="M250 62 L 335 62" stroke="#d62828" stroke-width="3" fill="none"/>
+  <text x="280" y="78" font-size="9">OUT+ → middle</text>
+  <path d="M368 62 L 368 75 L 460 75" stroke="#d62828" stroke-width="3" fill="none"/>
+  <text x="380" y="92" font-size="9">side → 5V</text>
+  <path d="M250 122 L 460 122" stroke="#222" stroke-width="3" fill="none"/>
+  <text x="330" y="138" font-size="9">OUT− → G</text>
+  <!-- esp -->
+  <rect x="460" y="55" width="80" height="90" rx="4" fill="#1f3b73"/><text x="500" y="105" text-anchor="middle" font-size="10" fill="#fff">ESP32-C3</text>
+  <g font-size="9" fill="#fff"><text x="464" y="79">5V</text><text x="464" y="126">G</text></g>
+  <path d="M540 80 L 570 80" stroke="#888" stroke-width="2"/><rect x="570" y="62" width="60" height="40" rx="3" fill="#111"/><text x="600" y="86" text-anchor="middle" font-size="9" fill="#7dd3fc">OLED</text>
+  <text x="20" y="175" font-size="10" fill="#b91c1c">Never plug the ESP32's USB-C while the switch is ON (two supplies on the 5V pin).</text>
+</svg>
+<figcaption>Diagram: OUT+ → switch middle, switch side → ESP32-C3 5V. OUT− → G. OLED wiring same as Step 4.</figcaption>
+</figure>
+
+<ol>
+  <li>Switch OFF. ESP32 USB-C unplugged. OLED still wired as in Step 4. TP4056 USB stays taped.</li>
+  <li>Jumper: <b>OUT+</b> → switch <b>middle</b>. Switch <b>side</b> → ESP32-C3 <b>5V</b>.</li>
+  <li>Jumper: <b>OUT−</b> → ESP32-C3 <b>G</b>.</li>
+  <li>Phone hotspot on. Switch ON. OLED shows <code>WIFI...</code> then <code>READY</code> + IP (<code>t4_wifi_udp</code> is still flashed).</li>
+  <li>Meter on DC volts: ESP32 3V3 to G → ≈ 3.3 V.</li>
+  <li>Mac on the hotspot: <code>venv/bin/python tools/send_test.py --host &lt;IP&gt; --text battery</code> → word shows on the OLED.</li>
+  <li>Flip the switch OFF → everything goes dark. ON → it boots again.</li>
+  <li><b>Runtime test:</b> full cell, switch ON, write the start time. Note when the OLED goes off. That's your battery life. Recharge with the bench supply (Step 8).</li>
+</ol>
+
+<div class="box done"><b>Done when</b>
+OLED shows READY + IP from the battery, <code>send_test.py</code> text appears, switch turns it on/off, runtime written down.</div>
+<div class="box fail"><b>If it fails</b>
+Nothing lights → measure OUT+/OUT− (should be ≈ battery voltage). 0 V → touch the bench supply (4.20 V, 0.3 A) to B+/B− for 2 s to "wake" the protection chip.
+Resets when Wi-Fi connects → cell is low, charge it. Works on USB but not battery → check the switch side you used (Step 7 beep test).</div>
+</section>
+
+<!-- ================= STEP 11 ================= -->
+<section>
+<h2>Step 11: Leftover checks from Steps 3–6</h2>
+<p class="goal">Goal: close the small tests that were skipped. USB power is fine here (battery switch OFF).</p>
+<table>
+<tr><th>Test</th><th>How</th><th>Pass</th></tr>
+<tr><td>ESP32-C3 #2 blink</td><td>Swap in board #2, upload <code>t1_blink</code></td><td>Blue LED blinks, serial shows <code>alive 0, 1, …</code></td></tr>
+<tr><td>OLED #2</td><td>Swap in OLED #2, upload <code>t2_i2c_scan</code>, then <code>t3_oled_hello</code></td><td><code>0x3C</code> found, HELLO + counter</td></tr>
+<tr><td>OLED #1 mirror</td><td><code>t3_oled_hello</code> with <code>MIRROR_X 1</code>, look at it in a mirror</td><td>Text reads normally in the mirror</td></tr>
+<tr><td>glasses.local</td><td>Upload <code>t4_wifi_udp</code>, then <code>venv/bin/python tools/send_test.py --text hello</code></td><td>hello on the OLED (if not: use the IP, note it)</td></tr>
+</table>
+<div class="box done"><b>Done when</b>
+All 4 rows pass (glasses.local failing is OK, just write it down).</div>
+</section>
+
+<!-- ================= STEP 12 ================= -->
+<section>
+<h2>Step 12: Optics bench test (lens + acrylic)</h2>
+<p class="goal">Goal: see sharp, readable OLED text through the lens and acrylic before building the housing.</p>
+
+<figure>
+<svg viewBox="0 0 640 170" width="640">
+  <line x1="40" y1="80" x2="370" y2="80" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+  <rect x="30" y="50" width="16" height="60" fill="#111"/><text x="38" y="40" text-anchor="middle" font-size="10">OLED</text>
+  <line x1="150" y1="55" x2="180" y2="105" stroke="#64748b" stroke-width="5"/><text x="165" y="40" text-anchor="middle" font-size="10">mirror 45°</text>
+  <ellipse cx="270" cy="80" rx="8" ry="32" fill="#bfdbfe" stroke="#1d4ed8"/><text x="270" y="40" text-anchor="middle" font-size="10">lens f 45</text>
+  <line x1="355" y1="55" x2="385" y2="105" stroke="#7dd3fc" stroke-width="3"/><text x="370" y="40" text-anchor="middle" font-size="10">acrylic 45°</text>
+  <path d="M370 80 L 370 140" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="370" y="158" text-anchor="middle" font-size="10">eye (≈ 20 mm)</text>
+  <g font-size="10" fill="#1a7f37"><text x="98" y="100" text-anchor="middle">22 mm</text><text x="222" y="100" text-anchor="middle">18 mm</text><text x="315" y="100" text-anchor="middle">16 mm</text></g>
+  <text x="420" y="70" font-size="10">u = 22 + 18 = 40 mm &lt; f = 45 mm</text>
+  <text x="420" y="86" font-size="10">→ big virtual image ≈ 36 cm away</text>
+</svg>
+<figcaption>Diagram: light path unfolded. OLED → mirror → lens → acrylic → eye.</figcaption>
+</figure>
+
+<ol>
+  <li>Run <code>t3_oled_hello</code> on USB (big text is easy to judge).</li>
+  <li><b>Without the mirror (you can do this now):</b> hold the lens 40 mm in front of the OLED (use a ruler). Look through the lens → large, sharp HELLO.</li>
+  <li>Move the OLED ±3 mm until the text is sharpest. Write that distance down.</li>
+  <li>Add the acrylic at 45° behind the lens. Look into it from the side → you see the text floating in front of you.</li>
+  <li>Text backwards? Set <code>MIRROR_X</code> to the other value, upload, look again.</li>
+  <li><b>When the mirror is cut (25 × 30 mm):</b> fold the path with it (22 mm OLED → mirror, 18 mm mirror → lens) and repeat 3–5.</li>
+  <li>Hard to see in a bright room → raise the contrast, put dark paper behind the acrylic.</li>
+</ol>
+
+<div class="box done"><b>Done when</b>
+Text is sharp and reads the right way round. Best u (mm) and the <code>MIRROR_X</code> value written down.</div>
+<div class="box fail"><b>If it fails</b>
+Double image → acrylic too thick, use the 1 mm one. Blurry at every position → u is too close to 45 mm; move the OLED closer to the lens.</div>
+</section>
+
+<!-- ================= STEP 13 ================= -->
+<section>
+<h2>Step 13: Final build: soldering <span class="stamp later">LATER</span></h2>
+<p class="goal">Goal: permanent, clean pins. Do this only after Steps 7–12 pass.</p>
 
 <figure>
 <svg viewBox="0 0 640 170" width="640">
@@ -633,45 +841,69 @@ Measure it in Ω mode before use. Ask for help with this step; it's fiddly.</div
   <li>Unplug the iron. Let the board cool for 1 minute.</li>
   <li>Beep mode: test every pair of neighbouring pins → <b>no beep</b>.</li>
   <li>Run Steps 3 and 4 again.</li>
+  <li>Final wires (short, thin): LiPo → TP4056 → switch → ESP32 5V/G, OLED → 3V3/G/GPIO8/GPIO9. Run Step 10 again.</li>
 </ol>
 
 <div class="box done"><b>Done when</b>
-All joints are shiny cones, no neighbouring pins beep, and blink + OLED work again.</div>
+All joints are shiny cones, no neighbouring pins beep, and blink + OLED + battery power work again.</div>
 <div class="box fail"><b>If it fails</b>
 Bridge → add flux, drag the clean hot tip between the pins.
 Ball → reheat with a touch of flux.</div>
 </section>
 
-<!-- ================= STEP 9 ================= -->
+<!-- ================= STEP 14 ================= -->
 <section>
-<h2>Step 9: Results checklist</h2>
+<h2>Step 14: Enclosure + mount on the glasses <span class="stamp later">LATER</span></h2>
+<p class="goal">Goal: everything inside the 3D-printed housing, clipped to the right temple arm.</p>
+<ol>
+  <li>Measure: temple arm width × height where the clip goes; LiPo, TP4056, ESP32-C3, OLED, mirror thickness.</li>
+  <li>Print <code>hardware/enclosure/stl/test_fit.stl</code> first (college lab). Check the parts fit; tune <code>clr</code> in <code>hud_enclosure.scad</code>.</li>
+  <li>Enclosure v2 (pockets + clip-on mount): plan in <code>docs/handoff/2026-10-29.md</code>. Build it, then print <code>body</code>, <code>lid</code>, <code>lens_plate</code>, <code>clip</code>.</li>
+  <li>Paint the inside matte black. Fit mirror, lens, acrylic. Keep the optics distances from Step 12.</li>
+  <li>Assembly order and print settings: <code>hardware/enclosure/README.md</code>.</li>
+  <li>Charger USB-C and switch must be reachable from outside.</li>
+</ol>
+<div class="box done"><b>Done when</b>
+Glasses on, switch ON, <code>send_test.py</code> word appears sharp in front of your eye.</div>
+</section>
+
+<!-- ================= STEP 15 ================= -->
+<section>
+<h2>Step 15: Results checklist</h2>
 <p class="goal">Tick each box as you go. Copy the results into <code>docs/hardware_bringup.md</code> and today's daily log.</p>
 
-<table>
-<tr><th style="width:4%">#</th><th style="width:22%">Part</th><th style="width:30%">Test</th><th style="width:8%">OK</th><th>Notes / reading</th></tr>
-<tr><td>1</td><td>ESP32-C3 #1</td><td>Volts 5V / 3V3</td><td class="tick">☑</td><td>5.162 V / 3.302 V</td></tr>
-<tr><td>2</td><td>ESP32-C3 #2</td><td>Volts 5V / 3V3</td><td class="tick">☑</td><td>5.162 V / 3.302 V</td></tr>
-<tr><td>3</td><td>Pin strips</td><td>2 × 8 pins snapped</td><td class="tick">☑</td><td></td></tr>
-<tr><td>4</td><td>ESP32-C3 #1</td><td>Friction fit on breadboard</td><td class="tick">☐</td><td></td></tr>
-<tr><td>5</td><td>ESP32-C3 #1</td><td>Blink + serial (Step 3)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>6</td><td>ESP32-C3 #2</td><td>Blink + serial (Step 3)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>7</td><td>Type-C cable</td><td>Upload works (data)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>8</td><td>OLED #1</td><td>Scan 0x3C, HELLO, mirror</td><td class="tick">☐</td><td></td></tr>
-<tr><td>9</td><td>OLED #2</td><td>Scan 0x3C, HELLO</td><td class="tick">☐</td><td></td></tr>
-<tr><td>10</td><td>Wi-Fi</td><td>READY + IP on OLED</td><td class="tick">☐</td><td>IP:</td></tr>
-<tr><td>11</td><td>UDP link</td><td>send_test.py → OLED</td><td class="tick">☐</td><td>glasses.local: yes / no</td></tr>
-<tr><td>12</td><td>TP4056 #1</td><td>B+ ≈ 4.2 V</td><td class="tick">☐</td><td></td></tr>
-<tr><td>13</td><td>TP4056 #2</td><td>B+ ≈ 4.2 V</td><td class="tick">☐</td><td></td></tr>
-<tr><td>14</td><td>Slide switches ×3</td><td>Middle ↔ side swaps</td><td class="tick">☐</td><td></td></tr>
-<tr><td>15</td><td>Breadboard + jumpers</td><td>No faults in Steps 4–6</td><td class="tick">☐</td><td></td></tr>
-<tr><td>16</td><td>TP4056 R3 mod</td><td>~2.4 kΩ before LiPo</td><td class="tick">☐</td><td>measured Ω:</td></tr>
-<tr><td>17</td><td>Soldering</td><td>Step 8 (final build)</td><td class="tick">☐</td><td></td></tr>
+<table class="tight">
+<tr><th style="width:4%">#</th><th style="width:22%">Part</th><th style="width:32%">Test (step)</th><th style="width:6%">OK</th><th>Notes / reading</th></tr>
+<tr><td>1</td><td>ESP32-C3 #1</td><td>Volts 5V / 3V3 (1)</td><td class="tick">☑</td><td>5.162 V / 3.302 V</td></tr>
+<tr><td>2</td><td>ESP32-C3 #1</td><td>Friction fit + blink + serial (2, 3)</td><td class="tick">☑</td><td>2026-10-25</td></tr>
+<tr><td>3</td><td>ESP32-C3 #2</td><td>Volts 5V / 3V3 (1)</td><td class="tick">☑</td><td>5.162 V / 3.302 V</td></tr>
+<tr><td>4</td><td>Type-C cable</td><td>Upload works (3)</td><td class="tick">☑</td><td></td></tr>
+<tr><td>5</td><td>Breadboard + jumpers</td><td>No faults (4–6)</td><td class="tick">☑</td><td>after wiring fix</td></tr>
+<tr><td>6</td><td>OLED #1</td><td>Scan 0x3C, HELLO (4)</td><td class="tick">☑</td><td>text + bitmap</td></tr>
+<tr><td>7</td><td>Wi-Fi + UDP</td><td>send_test.py → OLED via IP (5, 6)</td><td class="tick">☑</td><td>10.249.236.231</td></tr>
+<tr><td>8</td><td>TP4056 #1</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☐</td><td>V:</td></tr>
+<tr><td>9</td><td>TP4056 #2</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☐</td><td>V:</td></tr>
+<tr><td>10</td><td>Slide switches ×3</td><td>Middle ↔ side swaps (7)</td><td class="tick">☐</td><td></td></tr>
+<tr><td>11</td><td>Bench supply</td><td>Set 4.20 V / 0.30 A, checked with meter (8)</td><td class="tick">☐</td><td>V:</td></tr>
+<tr><td>12</td><td>LiPo charge</td><td>Bench charge, tapered, not warm (8, when needed)</td><td class="tick">☐</td><td>end V:</td></tr>
+<tr><td>13</td><td>LiPo #1</td><td>Volts as received (9a)</td><td class="tick">☑</td><td>3.999 V (2026-10-29)</td></tr>
+<tr><td>14</td><td>LiPo #2</td><td>Volts as received (9a)</td><td class="tick">☐</td><td>V:</td></tr>
+<tr><td>15</td><td>LiPo #1 + TP4056 #1</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
+<tr><td>16</td><td>LiPo #2 + TP4056 #2</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
+<tr><td>17</td><td>Battery power</td><td>READY + send_test.py, switch on/off (10)</td><td class="tick">☐</td><td>3V3:</td></tr>
+<tr><td>18</td><td>Battery life</td><td>Runtime test (10)</td><td class="tick">☐</td><td>hours:</td></tr>
+<tr><td>19</td><td>ESP32-C3 #2</td><td>Blink + serial (11)</td><td class="tick">☐</td><td></td></tr>
+<tr><td>20</td><td>OLED #2</td><td>Scan 0x3C, HELLO (11)</td><td class="tick">☐</td><td></td></tr>
+<tr><td>21</td><td>OLED #1</td><td>Mirror check (11)</td><td class="tick">☐</td><td></td></tr>
+<tr><td>22</td><td>glasses.local</td><td>send_test.py without IP (11)</td><td class="tick">☐</td><td>yes / no</td></tr>
+<tr><td>23</td><td>Optics</td><td>Sharp, right way round (12)</td><td class="tick">☐</td><td>u = &nbsp;&nbsp; mm, MIRROR_X =</td></tr>
+<tr><td>24</td><td>Soldering</td><td>Final build (13)</td><td class="tick">☐</td><td></td></tr>
+<tr><td>25</td><td>Enclosure</td><td>test_fit, print, assemble (14)</td><td class="tick">☐</td><td></td></tr>
 </table>
 
 <h3>What comes after</h3>
 <ol>
-  <li>LiPo + lens + acrylic arrive → battery power, build the housing.</li>
-  <li>Full glasses firmware: word-wrap, history, "NO LINK" screen.</li>
+  <li>Full glasses firmware <code>firmware/glasses_display/glasses_display.ino</code>: word-wrap, history, "NO LINK" screen.</li>
   <li>Connect the sign-recognition app to the same UDP link.</li>
 </ol>
 </section>

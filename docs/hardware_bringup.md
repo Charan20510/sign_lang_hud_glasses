@@ -5,7 +5,9 @@
 Branch: `testout`. Do the steps in order. Each one has a pass/fail check.
 Write your result in the table at the bottom and in today's `docs/handoff/YYYY-MM-DD.md`.
 
-Do **not** connect any LiPo during these tests (batteries haven't arrived, and the TP4056 needs a mod first — see Step 7).
+Steps 1–6 ✅ (2026-10-25). Next: Step 7 → Step 9 → Step 10. Charging = bench DC supply only (Step 8).
+
+**Never plug USB into a TP4056 that has a LiPo on it** (stock board = 1 A, too much for 600 mAh). Never hold battery wires on the pads by hand — solder them (Step 9).
 
 ## Step 1 — Visual check + multimeter basics
 **Goal:** spot damaged parts; learn the 2 meter modes you'll use.
@@ -71,6 +73,8 @@ Wiring on the breadboard (USB still powers everything):
 **If IP works but glasses.local doesn't:** fine for now — use the IP; note it in Issues.
 
 ## Step 7 — TP4056 + slide switch (USB only, NO LiPo)
+**LiPo already on a charger (red LED)?** Unplug USB, take the wires off the pads, keep red/black apart. Warm or puffy cell → set aside on a tile, don't use it.
+
 **TP4056 board pins:** `IN+/IN−` (or Type-C), `B+/B−` (battery), `OUT+/OUT−` (load).
 1. Plug Type-C into TP4056 #1. LEDs: with no battery, red/blue may flicker or both glow — that's normal.
 2. Meter DC volts on `B+`/`B−` → about **4.2 V** (may wander without a battery).
@@ -80,28 +84,79 @@ Wiring on the breadboard (USB still powers everything):
 
 **Pass:** B+ ≈ 4.1–4.25 V on both boards; every switch beeps middle↔side and swaps when flipped.
 
-**Before the LiPos arrive (safety):** the TP4056 charges at **1 A** (PROG resistor `R3`, marked `122` = 1.2 kΩ). Your LiPo is 500 mAh → 1 A is 2C, too much. Change it to **~2.4 kΩ (≈ 500 mA)**: desolder the `122` SMD resistor and solder a 2.2–2.4 kΩ resistor between the PROG pad and GND (a through-hole one is easier). Measure it with the meter (Ω mode) before use.
+## Step 8 — Charge the LiPo with the bench DC supply (no R3 mod)
+Only when the cell is below ~3.9 V. Only a lab supply with **both V and A knobs** — never a phone adapter / fixed 5 V / USB straight to the cell.
+1. Leads off the battery: set **4.20 V** (check with meter: 4.18–4.20 V). Short the leads, set the limit to **0.30 A** (never > 0.6 A).
+2. OUTPUT OFF → red → battery red (or B+), black → black (or B−) → OUTPUT ON. Shows ~0.30 A (CC).
+3. Cell on a tile, stay next to it, touch every 10 min; warm → OUTPUT OFF, stop.
+4. Current drops in CV; at **0.03–0.05 A** → OUTPUT OFF, unclip. Rest 5 min → 4.15–4.20 V.
+5. Below 3.0 V: start at 0.05 A until it passes 3.0 V.
 
-## Final build — soldering (later)
-Do this once all parts have arrived and every test above passes.
+**Pass:** current tapered, 4.15–4.20 V, never warm.
+Optional later (USB charging via TP4056): replace R3 `122` (1.2 kΩ = 1 A) with 2.2–2.4 kΩ (≈ 500 mA).
+
+## Step 9 — Solder battery wires to the TP4056
+1. LiPo volts (wire ends apart): 3.0–4.2 V OK; < 3.0 V → bench charge first (Step 8). Cell flat, not puffy.
+2. Solder **one wire at a time**: red → **B+**, black → **B−**. Never hand-held. Re-check polarity. Tape the joints.
+3. Tape over the TP4056 USB-C port, write **NO USB**. OUT+/OUT− ≈ battery voltage.
+4. To charge later: cell stays soldered, clip the bench supply to B+/B− (Step 8). Repeat for LiPo #2 / TP4056 #2.
+
+**Pass:** both cells soldered + taped, USB ports taped.
+
+## Step 10 — ESP32-C3 on battery
+Wiring: `OUT+` → switch middle, switch side → ESP32-C3 **5V**; `OUT−` → **G**. OLED as Step 4.
+**Never plug the ESP32 USB-C while the switch is ON. TP4056 USB stays taped.**
+1. Switch ON → `WIFI...` → `READY` + IP (`t4_wifi_udp`). 3V3 pin ≈ 3.3 V.
+2. `venv/bin/python tools/send_test.py --host <IP> --text battery` → word on OLED. Switch OFF/ON works.
+3. Runtime: full cell, note hours until the OLED goes off. Recharge with the bench supply (Step 8).
+
+**Pass:** works on battery, switch toggles it, runtime noted.
+**If 0 V on OUT:** touch the bench supply (4.20 V, 0.3 A) to B+/B− for 2 s to wake the protection chip.
+
+## Step 11 — Leftover checks
+ESP32-C3 #2 `t1_blink`; OLED #2 `t2_i2c_scan` + `t3_oled_hello`; OLED #1 `MIRROR_X 1` mirror check; `send_test.py --text hello` via `glasses.local`.
+
+## Step 12 — Optics bench test (lens + acrylic in hand, mirror still to get)
+1. `t3_oled_hello` on USB. Lens 40 mm from the OLED → big sharp HELLO. Slide OLED ±3 mm for best focus, note u.
+2. Add 1 mm acrylic at 45° behind the lens → text floats in view. Backwards → flip `MIRROR_X`.
+3. When the 25 × 30 mm mirror is cut: fold the path (OLED → mirror 22 mm, mirror → lens 18 mm), repeat.
+
+**Pass:** sharp text, right way round; u and `MIRROR_X` noted.
+
+## Step 13 — Final build: soldering (later)
+Do this once Steps 7, 9–12 pass.
 1. Push the 8-pin pieces into the breadboard, lay the ESP32-C3 on top, components facing up. The breadboard holds them straight.
 2. Iron at ~330 °C, a little flux. Touch iron to pad + pin together 1 s, feed solder, remove solder, then iron. Shiny cone = good; ball = reheat.
 3. OLED: if its 4 pins aren't soldered, do the same.
 4. Continuity check every **neighbouring** pin pair → must **not** beep (no solder bridges).
+5. Short final wires: LiPo → TP4056 → switch → ESP32 5V/G; OLED → 3V3/G/GPIO8/GPIO9.
 
-**Pass:** all pins shiny cones, no beep between neighbours. Re-run Step 3 + 4 after soldering.
+**Pass:** all pins shiny cones, no beep between neighbours. Re-run Steps 3, 4 and 10 after soldering.
+
+## Step 14 — Enclosure + mount (later)
+Measure the temple arm + part thicknesses → print `hardware/enclosure/stl/test_fit.stl`, tune `clr` → enclosure v2 (plan in `docs/handoff/2026-10-29.md`) → print, paint inside matte black, assemble per `hardware/enclosure/README.md`.
+**Pass:** glasses on, switch ON, `send_test.py` word sharp in front of the eye.
 
 ## Results
 All tests below use friction-fit headers (no solder) until the final build.
 | # | Part | Test | Result (✅/❌ + note) | Date |
 |---|---|---|---|---|
 | 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V; ✅ blink + serial | 2026-10-25 |
-| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending) | 2026-10-24 |
-| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | ✅ 0x3C, text + bitmap shown (mirror not checked) | 2026-10-25 |
+| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending, Step 11) | 2026-10-24 |
+| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | ✅ 0x3C, text + bitmap shown (mirror pending, Step 11) | 2026-10-25 |
 | 4 | OLED #2 | I2C 0x3C, HELLO | | |
-| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | ✅ via IP 10.249.236.231 (glasses.local not tried) | 2026-10-25 |
-| 6 | TP4056 #1 | B+ ≈ 4.2 V | | |
-| 7 | TP4056 #2 | B+ ≈ 4.2 V | | |
+| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | ✅ via IP 10.249.236.231 (glasses.local pending, Step 11) | 2026-10-25 |
+| 6 | TP4056 #1 | B+ ≈ 4.2 V, USB only | | |
+| 7 | TP4056 #2 | B+ ≈ 4.2 V, USB only | | |
 | 8 | Slide switch ×3 | continuity swap | | |
 | 9 | Type-C cable | data (upload works) | ✅ | 2026-10-25 |
 | 10 | Breadboard / jumpers | used in steps 4–6 without faults | ✅ after wiring fix | 2026-10-25 |
+| 11 | Bench supply | 4.20 V / 0.30 A set + checked with meter | | |
+| 12 | LiPo charge | bench charge tapered, end V, not warm (when needed) | | |
+| 13 | LiPo #1 | volts as received; soldered, NO-USB tape | ✅ 3.999 V (Rigol DM3058E) — ~80 %, no charge needed | 2026-10-29 |
+| 14 | LiPo #2 | volts as received; soldered, NO-USB tape | | |
+| 15 | Battery power | READY + send_test.py on battery, switch on/off, 3V3 | | |
+| 16 | Battery life | runtime (hours) | | |
+| 17 | Optics | sharp + right way round (u mm, MIRROR_X) | | |
+| 18 | Soldering | final build | | |
+| 19 | Enclosure | test_fit, print, assemble | | |

@@ -34,16 +34,17 @@ ISL signer in front of me → camera → **laptop** (MediaPipe + PyTorch) recogn
 
 **Camera unit (stretch, opposite arm):**
 - LiPo #2 → TP4056 #2 → switch → **MT3608 set to 5.0 V** → ESP32-CAM 5V/GND
-- Never feed LiPo directly to ESP32-CAM. Runs hot; ~1 h on 500 mAh.
+- Never feed LiPo directly to ESP32-CAM. Runs hot; ~1 h on 600 mAh.
 
-**Safety:** TP4056 charges at 1 A — too high for 500 mAh LiPo → change its current-set resistor (~2.4 kΩ ≈ 500 mA) before charging.
+**Safety / charging (decided 2026-10-29):** TP4056 left stock (1 A = 1.7C for 600 mAh) → its USB is NEVER used with a cell attached (port taped "NO USB"). Charge only with the lab bench supply: 4.20 V CV, 0.30 A limit, stop at ≤ 0.05 A. Battery leads soldered to B+/B−, never hand-held.
 
 ## 5. Parts status (as of 24 Oct 2026)
 **In hand (Robocraze order 377900, delivered):** ESP32-C3 SuperMini ×2 (unsoldered), 0.96" SSD1306 OLED ×2,
 TP4056 Type-C w/ protection ×2, slide switch ×3, veroboard 6×4 ×2, 40×2 male + 40×1 female berg,
 Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with multimeter).
 
-**On the way:** LiPo 3.7 V 500 mAh ×2, DOMO 25 mm / f45 lens pair, 1 mm acrylic ×4.
+**Arrived by 2026-10-29:** LiPo 3.7 V **600 mAh** ×2 (KP 602030P, ~30 × 20 × 6 mm), DOMO 25 mm / f45 lens pair, 1 mm acrylic ×4.
+**Still to get:** mirror 25 × 30 mm (local shop), heat-shrink/tape.
 **Stretch, not ordered yet:** ESP32-CAM OV3660, ESP32-CAM-MB, MT3608 boost, glue gun.
 
 **Local / already have:**
@@ -66,8 +67,8 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 - `hud_glasses_drawings.pdf` + 2 PNGs — side view with dimensions, optics math, wiring diagram, cut templates
 
 ## 8. Open to-dos
-1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF): Steps 1–6 ✅ by 2026-10-25 (volts, blink, OLED 0x3C, Wi-Fi, Mac → OLED over UDP). Left: Step 7 TP4056 + switches, board #2 / OLED #2, soldering at final build.
-2. Change TP4056 PROG resistor (~2.4 kΩ ≈ 500 mA) BEFORE first LiPo charge.
+1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF, 15 steps): Steps 1–6 ✅ by 2026-10-25. Left: 7 TP4056 + switches (USB only) → 8 bench-supply charge (when < 3.9 V) → 9 solder battery leads + NO-USB tape → 10 ESP32 on battery + runtime → 11 board #2 / OLED #2 / mirror / glasses.local → 12 optics bench → 13 soldering → 14 enclosure.
+2. LiPo #1 = 3.999 V as received (no charge needed yet). Charge only on the bench supply (Step 8).
 3. Get mirror piece locally.
 4. When LiPo/lens/acrylic arrive: power from battery, build housing, full `glasses_display.ino`.
 5. Software Phases 3–4 (train/evaluate) on `S1`.
