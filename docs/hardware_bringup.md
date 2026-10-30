@@ -5,7 +5,7 @@
 Branch: `testout`. Do the steps in order. Each one has a pass/fail check.
 Write your result in the table at the bottom and in today's `docs/handoff/YYYY-MM-DD.md`.
 
-Steps 1–6 ✅ (2026-10-25). Next: Step 7 → Step 9 → Step 10. Charging = bench DC supply only (Step 8).
+Steps 1–6 ✅ (2026-10-25). Step 10 ✅ runs on battery (2026-10-29). Left: Step 7 USB-only test, Step 9 tidy-up (solder + tape battery joints, tape USB), Step 10 3V3 + switch + runtime. Charging = bench DC supply only (Step 8).
 
 **Never plug USB into a TP4056 that has a LiPo on it** (stock board = 1 A, too much for 600 mAh). Never hold battery wires on the pads by hand — solder them (Step 9).
 
@@ -80,7 +80,7 @@ Wiring on the breadboard (USB still powers everything):
 2. Meter DC volts on `B+`/`B−` → about **4.2 V** (may wander without a battery).
 3. `OUT+`/`OUT−`: may read ~4.2 V or 0 V without a battery (the protection chip needs a cell) — not a failure.
 4. Repeat for TP4056 #2.
-5. Slide switch: continuity between **middle** pin and one side pin; flip → beeps on the other side. Test all 3.
+5. Slide switch: continuity between **middle** pin and one side pin; flip → beeps on the other side. Test all 3. The 2 end tabs are mounting only (not wired) — bend/cut if in the way.
 
 **Pass:** B+ ≈ 4.1–4.25 V on both boards; every switch beeps middle↔side and swaps when flipped.
 
@@ -106,7 +106,7 @@ Optional later (USB charging via TP4056): replace R3 `122` (1.2 kΩ = 1 A) with 
 ## Step 10 — ESP32-C3 on battery
 Wiring: `OUT+` → switch middle, switch side → ESP32-C3 **5V**; `OUT−` → **G**. OLED as Step 4.
 **Never plug the ESP32 USB-C while the switch is ON. TP4056 USB stays taped.**
-1. Switch ON → `WIFI...` → `READY` + IP (`t4_wifi_udp`). 3V3 pin ≈ 3.3 V.
+1. Switch ON → `WIFI...` → `READY` + IP (`t4_wifi_udp`). 3V3 pin ≈ 3.3 V. (5V pin = battery voltage on battery, 3.7–4.2 V — normal.)
 2. `venv/bin/python tools/send_test.py --host <IP> --text battery` → word on OLED. Switch OFF/ON works.
 3. Runtime: full cell, note hours until the OLED goes off. Recharge with the bench supply (Step 8).
 
@@ -155,7 +155,7 @@ All tests below use friction-fit headers (no solder) until the final build.
 | 12 | LiPo charge | bench charge tapered, end V, not warm (when needed) | | |
 | 13 | LiPo #1 | volts as received; soldered, NO-USB tape | ✅ 3.999 V (Rigol DM3058E) — ~80 %, no charge needed | 2026-10-29 |
 | 14 | LiPo #2 | volts as received; soldered, NO-USB tape | | |
-| 15 | Battery power | READY + send_test.py on battery, switch on/off, 3V3 | | |
+| 15 | Battery power | READY + send_test.py on battery, switch on/off, 3V3 | ✅ READY + IP 10.249.236.231, words from `send_test.py` shown; 5V pin 3.967 V under load (3V3 + switch toggle pending) | 2026-10-29 |
 | 16 | Battery life | runtime (hours) | | |
 | 17 | Optics | sharp + right way round (u mm, MIRROR_X) | | |
 | 18 | Soldering | final build | | |

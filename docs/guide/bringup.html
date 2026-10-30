@@ -53,7 +53,7 @@
 <p class="muted">Branch <code>testout</code> · 2026-10-24, updated 2026-10-29 · Charan · Pictures are drawn diagrams, not photos.</p>
 
 <h3>Where you are</h3>
-<p>Steps 1–6 ✅ done. <b>Next: Step 7</b> (chargers, USB only), then <b>Step 9</b> (solder battery wires) and <b>Step 10</b> (run on battery). Charging = bench DC supply only (Step 8).</p>
+<p>Steps 1–6 ✅ done. Step 10 ✅ runs on battery (READY + IP, words arrive). <b>Left now:</b> Step 7 USB-only charger test, Step 9 tidy-up (solder + tape the battery joints, tape the USB port), Step 10 3V3 reading + switch + runtime. Charging = bench DC supply only (Step 8).</p>
 
 <h3>How to use this guide</h3>
 <ol>
@@ -586,6 +586,7 @@ IP works but <code>glasses.local</code> doesn't → fine for now, use the IP and
   <li>Probes on <b>middle</b> pin and <b>side A</b> → beep (or not).</li>
   <li>Flip the switch. Now <b>middle</b> and <b>side B</b> should beep.</li>
   <li>Test all 3 switches.</li>
+  <li>The 2 metal tabs at the ends are <b>mounting only</b> (not wired). Bend or cut them if they get in the way.</li>
 </ol>
 
 <div class="box done"><b>Done when</b>
@@ -701,7 +702,7 @@ Wire came off → re-tin pad and wire. Board got hot while soldering a cell → 
 
 <!-- ================= STEP 10 ================= -->
 <section>
-<h2>Step 10: Run the ESP32-C3 from the battery</h2>
+<h2>Step 10: Run the ESP32-C3 from the battery <span class="stamp">✅ RUNS</span></h2>
 <p class="goal">Goal: the glasses electronics work with no USB cable: battery → charger → switch → ESP32-C3 → OLED.</p>
 
 <figure>
@@ -733,7 +734,7 @@ Wire came off → re-tin pad and wire. Board got hot while soldering a cell → 
   <li>Jumper: <b>OUT+</b> → switch <b>middle</b>. Switch <b>side</b> → ESP32-C3 <b>5V</b>.</li>
   <li>Jumper: <b>OUT−</b> → ESP32-C3 <b>G</b>.</li>
   <li>Phone hotspot on. Switch ON. OLED shows <code>WIFI...</code> then <code>READY</code> + IP (<code>t4_wifi_udp</code> is still flashed).</li>
-  <li>Meter on DC volts: ESP32 3V3 to G → ≈ 3.3 V.</li>
+  <li>Meter on DC volts: ESP32 3V3 to G → ≈ 3.3 V. (The 5V pin reads the battery voltage, 3.7–4.2 V, on battery. That's normal.)</li>
   <li>Mac on the hotspot: <code>venv/bin/python tools/send_test.py --host &lt;IP&gt; --text battery</code> → word shows on the OLED.</li>
   <li>Flip the switch OFF → everything goes dark. ON → it boots again.</li>
   <li><b>Runtime test:</b> full cell, switch ON, write the start time. Note when the OLED goes off. That's your battery life. Recharge with the bench supply (Step 8).</li>
@@ -890,7 +891,7 @@ Glasses on, switch ON, <code>send_test.py</code> word appears sharp in front of 
 <tr><td>14</td><td>LiPo #2</td><td>Volts as received (9a)</td><td class="tick">☐</td><td>V:</td></tr>
 <tr><td>15</td><td>LiPo #1 + TP4056 #1</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
 <tr><td>16</td><td>LiPo #2 + TP4056 #2</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
-<tr><td>17</td><td>Battery power</td><td>READY + send_test.py, switch on/off (10)</td><td class="tick">☐</td><td>3V3:</td></tr>
+<tr><td>17</td><td>Battery power</td><td>READY + send_test.py, switch on/off (10)</td><td class="tick">☑</td><td>READY + IP, words OK; 5V pin 3.967 V; 3V3: · switch:</td></tr>
 <tr><td>18</td><td>Battery life</td><td>Runtime test (10)</td><td class="tick">☐</td><td>hours:</td></tr>
 <tr><td>19</td><td>ESP32-C3 #2</td><td>Blink + serial (11)</td><td class="tick">☐</td><td></td></tr>
 <tr><td>20</td><td>OLED #2</td><td>Scan 0x3C, HELLO (11)</td><td class="tick">☐</td><td></td></tr>

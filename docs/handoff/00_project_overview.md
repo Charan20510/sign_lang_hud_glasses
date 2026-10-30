@@ -67,7 +67,7 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 - `hud_glasses_drawings.pdf` + 2 PNGs — side view with dimensions, optics math, wiring diagram, cut templates
 
 ## 8. Open to-dos
-1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF, 15 steps): Steps 1–6 ✅ by 2026-10-25. Left: 7 TP4056 + switches (USB only) → 8 bench-supply charge (when < 3.9 V) → 9 solder battery leads + NO-USB tape → 10 ESP32 on battery + runtime → 11 board #2 / OLED #2 / mirror / glasses.local → 12 optics bench → 13 soldering → 14 enclosure.
+1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF, 15 steps): Steps 1–6 ✅ by 2026-10-25. Left: 7 TP4056 + switches (USB only) → 8 bench-supply charge (when < 3.9 V) → 9 solder battery leads + NO-USB tape → 10 ✅ runs on battery 2026-10-29 (3V3, switch, runtime pending) → 11 board #2 / OLED #2 / mirror / glasses.local → 12 optics bench → 13 soldering → 14 enclosure.
 2. LiPo #1 = 3.999 V as received (no charge needed yet). Charge only on the bench supply (Step 8).
 3. Get mirror piece locally.
 4. When LiPo/lens/acrylic arrive: power from battery, build housing, full `glasses_display.ino`.
