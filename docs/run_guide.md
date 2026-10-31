@@ -5,9 +5,9 @@ Short version. Do the steps in order; each one proves one more link.
 ## 1. One-time setup
 - Phone hotspot on **2.4 GHz** (the ESP32-C3 cannot join 5 GHz). Mac joins the same hotspot.
 - Wiring: OLED `SDA` → GPIO8, `SCK` → GPIO9, `VDD` → 3V3, `GND` → GND. Address 0x3C.
-- `firmware/tests/t4_wifi_udp/`: copy `secrets.h.example` → `secrets.h`, fill in the hotspot name + password.
-- Arduino IDE → **File → Open** `firmware/tests/t4_wifi_udp/t4_wifi_udp.ino`
-  (the final `firmware/glasses_display/` sketch is not written yet; t4 is the receiver for now).
+- `firmware/glasses_display/secrets.h` = hotspot name + password (copy of `t4_wifi_udp/secrets.h`;
+  or copy `secrets.h.example` → `secrets.h` and fill it in).
+- Arduino IDE → **File → Open** `firmware/glasses_display/glasses_display.ino`.
 - Tools → Board **ESP32C3 Dev Module**, **USB CDC On Boot: Enabled**, Port `/dev/cu.usbmodem…` → Upload.
 
 ## 2. Check the Wi-Fi link
@@ -23,7 +23,9 @@ Short version. Do the steps in order; each one proves one more link.
 - ```bash
   python software/run.py --simulate
   ```
-- Pass: the OLED shows `ME`, `SCHOOL`, `GO`, then `I am going to school.`, and so on, every few seconds.
+- Pass: each word in the middle of the OLED, big (size 2), 2 s apart — `IT`, `IS`, `HOT`, `TODAY` —
+  then the full sentence `It is hot today.` centred.
+- `The HTTP server did not start` → port 8000 is busy (e.g. another app): add `--port 9000`.
 - Terminal prints `[glasses] sending to glasses.local = <IP>:4210`. Ctrl+C stops it.
 
 ## 4. Live camera (real signs)
@@ -47,6 +49,5 @@ Short version. Do the steps in order; each one proves one more link.
 | OLED blank | Check SDA/SCK wires; run `firmware/tests/t2_i2c_scan` (expect 0x3C) |
 | `cannot find glasses.local yet` | Use the IP from the OLED: `python software/run.py --simulate --glasses <IP>` |
 | Nothing arrives | Mac and glasses on the same hotspot? Port 4210 in `config.yaml` and the sketch? |
-| Only the last word shows | Expected with t4: it shows the latest packet only (history comes with `glasses_display`) |
 | `No trained model found` | Step 4 needs a model; use `--simulate` until then |
 | Don't want the glasses | `python software/run.py --no-glasses` |

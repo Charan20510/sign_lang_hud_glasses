@@ -134,18 +134,22 @@ SIM = [("ME SCHOOL GO", "I am going to school."), ("YOU NAME WHAT", "What is you
        ("TODAY HOT", "It is hot today."), ("THANK YOU", "Thank you.")]
 
 
+WORD_GAP_S = 2.0   # seconds between simulated words (and before the full sentence)
+
+
 def simulate(store, glasses=None):
-    """Fake signer: builds each sentence word by word in /live, then finishes it."""
+    """Fake signer: shows each English word in /live and on the glasses, then the full sentence.
+    English words, not the glosses: ISL drops words like 'is' (TODAY HOT = It is hot today)."""
     i = 0
     while True:
         gloss, english = SIM[i % len(SIM)]
-        words = gloss.split()
+        words = english.rstrip(".?!").upper().split()
         for k in range(1, len(words) + 1):
-            time.sleep(1.2)
+            time.sleep(WORD_GAP_S)
             store.set_live(" ".join(words[:k]))
             if glasses:
                 glasses.send(words[k - 1])
-        time.sleep(1.5)
+        time.sleep(WORD_GAP_S)
         if glasses:
             glasses.send(english)
         item = store.add(gloss, english)
