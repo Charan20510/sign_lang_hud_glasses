@@ -99,5 +99,5 @@ The render prints the optics, the clip numbers (`jaw_drop 35, jaw_out 12.5, stra
 - **Clip snap strain** is 2.2 %, under PLA's ~2.5 % limit. Snap it on gently. PETG is more forgiving.
 - **The lens:** it focuses at u = 22, so its real focal length is likely ~25 mm, not the marked 45.
 - **Changes from v2:**
-  - no mirror (the `mirror_order` sheet is obsolete)
+  - no mirror (the old mirror order sheet was removed)
   - zip-tie grooves off (`tie_grooves_on = false`)

@@ -7,6 +7,7 @@
 ISL signer in front of me → camera → **laptop** (MediaPipe + PyTorch) recognises the sign → word sent over **Wi-Fi** → **ESP32-C3** on my glasses shows it on a **0.96" OLED**, reflected into my eye (DIY HUD). Combined CS + ECE project.
 
 - Me: Charan, final-year B.Tech ECE (VLSI), IIIT Senapati, Manipur. Dev machine: MacBook Air (Apple Silicon).
+- **Ownership (from 2026-10-31):** Charan = hardware + firmware (branch `testout`); friend = all software (branch `S1`). Shared contract: `docs/interface.md`.
 - Style: short, simple key points.
 - Scope: **isolated words** (INCLUDE-50 + my own words), not full sentences.
 
@@ -51,19 +52,15 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 - Mirror piece 2.5×2.9 cm — local glass shop (₹10–30), thin glass preferred
 - Glasses frame — my Lenskart computer glasses (mount with zip ties/velcro, no glue; raise OLED contrast because of blue-cut coating)
 
-## 6. Software plan (full spec in CLAUDE.md — use with Claude Code)
-- Dataset: **INCLUDE-50** (AI4Bharat/IIT Madras) — zenodo.org/records/4010759, code github.com/AI4Bharat/INCLUDE. Paper benchmark: 94.5% on INCLUDE-50.
-- + my own clips: ~30/word, 2–3 people (tools/record_custom.py).
-- Features: MediaPipe hands (2×21×3) + upper-body pose; normalize by shoulder center/width; resample to T = 32.
-- Models: GRU baseline → small Transformer (PyTorch, MPS). Run natively on macOS, not Docker.
-- Eval: top-1/top-5, macro F1, confusion matrix, signer-independent test, latency, model size → reports/RESULTS.md.
-- Live: sliding window, predict every 4 frames, emit if conf ≥ 0.8 + 3/5 vote + 1 s cooldown; demo window for evaluators.
-- Link: phone hotspot, UDP JSON `{"text":..,"conf":..}`, mDNS `glasses.local`, `send_test.py` first.
-- Phases: 0 Setup → 1 Data → 2 Keypoints → 3 Train → 4 Evaluate → 5 Live app → 6 Firmware → 7 Camera (stretch) → 8 Polish.
-- First Claude Code prompt: "Read CLAUDE.md. Do Phase 0 only, show results, stop."
+## 6. Software (friend's part, branch `S1`)
+- Recognizer app (INCLUDE-50 dataset, MediaPipe keypoints, GRU/Transformer, live app) is owned by my friend on `S1`.
+  Removed from `testout` on 2026-10-31; nothing of it is maintained here.
+- Link to the glasses: phone hotspot, UDP JSON `{"text":..,"conf":..}`, mDNS `glasses.local` — full contract in `docs/interface.md`.
+- My test tool for the link: `tools/send_test.py` (no ML).
 
 ## 7. Files created so far
-- `CLAUDE.md` — Claude Code project spec (phases, repo structure, rules)
+- `CLAUDE.md` — Claude Code project spec (hardware side, rules; gitignored)
+- `docs/interface.md` — app ↔ glasses contract
 - `hud_glasses_drawings.pdf` + 2 PNGs — side view with dimensions, optics math, wiring diagram, cut templates
 
 ## 8. Open to-dos
@@ -71,7 +68,7 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 2. LiPo #1 = 3.999 V as received (no charge needed yet). Charge only on the bench supply (Step 8).
 3. Get mirror piece locally.
 4. When LiPo/lens/acrylic arrive: power from battery, build housing, full `glasses_display.ino`.
-5. Software Phases 3–4 (train/evaluate) on `S1`.
+5. Software (train/evaluate/live app) — friend, on `S1`. Agree any packet change via `docs/interface.md`.
 6. Later: camera unit, latency measurement, report & viva prep.
 
 Daily log: see `docs/handoff/README.md`.
