@@ -37,4 +37,3 @@ One UDP datagram per emitted word, UTF-8 JSON:
 ```bash
 python tools/send_test.py --text hello
 ```
-`tests/test_send_test.py` checks the packet format and size.
