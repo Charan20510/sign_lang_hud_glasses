@@ -92,7 +92,6 @@
 <div>
 <p><b>Still to get 🛒</b></p>
 <ul>
-  <li>Mirror piece 25 × 30 mm (local glass shop)</li>
   <li>Heat-shrink or insulating tape</li>
 </ul>
 <p><b>Stretch (later)</b></p>
@@ -532,7 +531,7 @@ IP works but <code>glasses.local</code> doesn't → fine for now, use the IP and
 
 <!-- ================= STEP 7 ================= -->
 <section>
-<h2>Step 7: Test the chargers and switches (USB only)</h2>
+<h2>Step 7: Test the chargers and switches (USB only) <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: both TP4056 chargers and all 3 slide switches work. <b>No battery.</b></p>
 <div class="box warn"><b>⚠ LiPo already on the charger? (red LED on)</b>
 1. Unplug the USB-C cable. 2. Take the battery wires off the pads and keep red and black apart.
@@ -598,7 +597,7 @@ B+ reads 0 V → bad USB cable or dead board, try the other cable. B+ above 4.3 
 
 <!-- ================= STEP 8 ================= -->
 <section>
-<h2>Step 8: Charge the LiPo with the bench DC supply</h2>
+<h2>Step 8: Charge the LiPo with the bench DC supply <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: charge safely at 0.3 A / 4.20 V (CC/CV) without changing the TP4056. Only needed when the cell is below ~3.9 V.</p>
 
 <figure>
@@ -646,7 +645,7 @@ Cell warm or puffy → stop and don't use that cell.</div>
 
 <!-- ================= STEP 9 ================= -->
 <section>
-<h2>Step 9: Solder the battery wires to the TP4056</h2>
+<h2>Step 9: Solder the battery wires to the TP4056 <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: LiPo soldered to B+/B− the right way round, and the TP4056 USB port blocked so it can never charge at 1 A.</p>
 
 <figure>
@@ -702,7 +701,7 @@ Wire came off → re-tin pad and wire. Board got hot while soldering a cell → 
 
 <!-- ================= STEP 10 ================= -->
 <section>
-<h2>Step 10: Run the ESP32-C3 from the battery <span class="stamp">✅ RUNS</span></h2>
+<h2>Step 10: Run the ESP32-C3 from the battery <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: the glasses electronics work with no USB cable: battery → charger → switch → ESP32-C3 → OLED.</p>
 
 <figure>
@@ -749,7 +748,7 @@ Resets when Wi-Fi connects → cell is low, charge it. Works on USB but not batt
 
 <!-- ================= STEP 11 ================= -->
 <section>
-<h2>Step 11: Leftover checks from Steps 3–6</h2>
+<h2>Step 11: Leftover checks from Steps 3–6 <span class="stamp">✅ DONE</span></h2>
 <p class="goal">Goal: close the small tests that were skipped. USB power is fine here (battery switch OFF).</p>
 <table>
 <tr><th>Test</th><th>How</th><th>Pass</th></tr>
@@ -764,39 +763,68 @@ All 4 rows pass (glasses.local failing is OK, just write it down).</div>
 
 <!-- ================= STEP 12 ================= -->
 <section>
-<h2>Step 12: Optics bench test (lens + acrylic)</h2>
-<p class="goal">Goal: see sharp, readable OLED text through the lens and acrylic before building the housing.</p>
+<h2>Step 12: Optics bench test + measurements for printing</h2>
+<p class="goal">Goal: sharp, readable OLED text through lens + acrylic (no mirror), and every number the 3D model needs written down. Fill-in sheet: <code>docs/step12_measure.pdf</code>.</p>
 
 <figure>
 <svg viewBox="0 0 640 170" width="640">
-  <line x1="40" y1="80" x2="370" y2="80" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="46" y1="80" x2="300" y2="80" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
   <rect x="30" y="50" width="16" height="60" fill="#111"/><text x="38" y="40" text-anchor="middle" font-size="10">OLED</text>
-  <line x1="150" y1="55" x2="180" y2="105" stroke="#64748b" stroke-width="5"/><text x="165" y="40" text-anchor="middle" font-size="10">mirror 45°</text>
-  <ellipse cx="270" cy="80" rx="8" ry="32" fill="#bfdbfe" stroke="#1d4ed8"/><text x="270" y="40" text-anchor="middle" font-size="10">lens f 45</text>
-  <line x1="355" y1="55" x2="385" y2="105" stroke="#7dd3fc" stroke-width="3"/><text x="370" y="40" text-anchor="middle" font-size="10">acrylic 45°</text>
-  <path d="M370 80 L 370 140" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
-  <text x="370" y="158" text-anchor="middle" font-size="10">eye (≈ 20 mm)</text>
-  <g font-size="10" fill="#1a7f37"><text x="98" y="100" text-anchor="middle">22 mm</text><text x="222" y="100" text-anchor="middle">18 mm</text><text x="315" y="100" text-anchor="middle">16 mm</text></g>
-  <text x="420" y="70" font-size="10">u = 22 + 18 = 40 mm &lt; f = 45 mm</text>
-  <text x="420" y="86" font-size="10">→ big virtual image ≈ 36 cm away</text>
+  <ellipse cx="160" cy="80" rx="8" ry="32" fill="#bfdbfe" stroke="#1d4ed8"/><text x="160" y="40" text-anchor="middle" font-size="10">lens</text>
+  <line x1="285" y1="55" x2="315" y2="105" stroke="#7dd3fc" stroke-width="3"/><text x="300" y="40" text-anchor="middle" font-size="10">acrylic 45°</text>
+  <path d="M300 80 L 300 140" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="300" y="158" text-anchor="middle" font-size="10">eye</text>
+  <g font-size="10" fill="#1a7f37"><text x="100" y="100" text-anchor="middle">22 mm</text><text x="230" y="100" text-anchor="middle">25 mm</text></g>
+  <text x="360" y="70" font-size="10">u = OLED → lens = 22 mm (bench)</text>
+  <text x="360" y="86" font-size="10">no mirror: OLED lies flat above the lens</text>
 </svg>
-<figcaption>Diagram: light path unfolded. OLED → mirror → lens → acrylic → eye.</figcaption>
+<figcaption>Light path drawn straight. OLED → lens → acrylic → eye.</figcaption>
 </figure>
 
 <ol>
-  <li>Run <code>t3_oled_hello</code> on USB (big text is easy to judge).</li>
-  <li><b>Without the mirror (you can do this now):</b> hold the lens 40 mm in front of the OLED (use a ruler). Look through the lens → large, sharp HELLO.</li>
-  <li>Move the OLED ±3 mm until the text is sharpest. Write that distance down.</li>
-  <li>Add the acrylic at 45° behind the lens. Look into it from the side → you see the text floating in front of you.</li>
-  <li>Text backwards? Set <code>MIRROR_X</code> to the other value, upload, look again.</li>
-  <li><b>When the mirror is cut (25 × 30 mm):</b> fold the path with it (22 mm OLED → mirror, 18 mm mirror → lens) and repeat 3–5.</li>
+  <li>Run <code>t3_oled_hello</code> on USB.</li>
+  <li>Hold the lens in front of the OLED, slide the OLED until HELLO is sharpest. Write down u (OLED screen → lens centre). Bench: 22 mm works.</li>
+  <li>Put the acrylic at 45° about 25 mm behind the lens. Look into it from the side → text floats in view.</li>
+  <li>Text backwards or upside down? Change <code>MIRROR_X</code> (or the rotation), upload, look again.</li>
   <li>Hard to see in a bright room → raise the contrast, put dark paper behind the acrylic.</li>
 </ol>
 
+<h3>12a. Write down — optics (ruler)</h3>
+<table class="tight">
+<tr><th style="width:5%">#</th><th style="width:42%">Measure</th><th style="width:28%">Goes into the model</th><th>Value</th></tr>
+<tr><td>O1</td><td>Best focus <b>u</b>: OLED screen → lens centre</td><td><code>d_oled_lens = u</code>; slots at u − 3 / u / u + 3</td><td>u = &nbsp;&nbsp;&nbsp; mm</td></tr>
+<tr><td>O2</td><td>Still sharp with the acrylic at 25 mm?</td><td><code>d_lens_acr</code></td><td>yes / no</td></tr>
+<tr><td>O3</td><td><code>MIRROR_X</code> (and rotation) that reads right</td><td>firmware</td><td>0 / 1</td></tr>
+<tr><td>O4</td><td>Readable in room light?</td><td>contrast, dark backing</td><td>yes / no</td></tr>
+<tr><td>O5</td><td>Lens real focal length: project a window onto paper, lens → paper</td><td>explains u = 22</td><td>f = &nbsp;&nbsp;&nbsp; mm</td></tr>
+</table>
+
+<h3>12b. Write down — parts (calipers)</h3>
+<table class="tight">
+<tr><th style="width:18%">Part</th><th style="width:42%">Measure (mm)</th><th style="width:22%">Variable</th><th>Value</th></tr>
+<tr><td>Acrylic</td><td>length × width × thickness (width must be 29–30.4)</td><td><code>acr_t</code></td><td></td></tr>
+<tr><td>Lens</td><td>diameter, centre thickness</td><td><code>lens_d</code>, <code>lens_t</code></td><td></td></tr>
+<tr><td>OLED</td><td>PCB width × length × thickness, glass thickness, where the glass starts and ends along the PCB (from the edge without pins)</td><td><code>oled_*</code>, <code>oled_glass_x</code></td><td></td></tr>
+<tr><td>TP4056</td><td>length × width × tallest part</td><td><code>tp</code>, <code>tp_h</code></td><td></td></tr>
+<tr><td>ESP32-C3</td><td>length × width × PCB thickness</td><td><code>esp</code>, <code>pcb_t</code></td><td></td></tr>
+<tr><td>Slide switch</td><td>body length × width × height</td><td><code>sw_body</code></td><td></td></tr>
+<tr><td>LiPo</td><td>length × width × thickness</td><td><code>lipo</code></td><td></td></tr>
+</table>
+
+<h3>12c. Write down — your glasses (wear them; ruler + phone selfie)</h3>
+<table class="tight">
+<tr><th style="width:52%">Measure (mm)</th><th style="width:30%">Variable</th><th>Value</th></tr>
+<tr><td>Temple arm width × height, about 2 cm behind the hinge</td><td><code>temple_w</code>, <code>temple_h</code></td><td>7 × 7</td></tr>
+<tr><td>Pupil → temple-arm centre: up/down <b>dv</b> (+ = above pupil)</td><td><code>temple_dv</code> (measured 10)</td><td></td></tr>
+<tr><td>Pupil → temple-arm centre: sideways <b>dh</b></td><td><code>temple_dh</code> (measured 37)</td><td></td></tr>
+<tr><td>Frame top rim height above the pupil</td><td><code>frame_rim</code> (measured 13; must be &lt; 26)</td><td></td></tr>
+</table>
+
 <div class="box done"><b>Done when</b>
-Text is sharp and reads the right way round. Best u (mm) and the <code>MIRROR_X</code> value written down.</div>
+Text is sharp and reads the right way round through lens + acrylic, and all three tables are filled in.
+Send the numbers → model is rebuilt (<code>sh hardware/enclosure/build.sh</code>) → print <code>test_fit.stl</code> first.</div>
 <div class="box fail"><b>If it fails</b>
-Double image → acrylic too thick, use the 1 mm one. Blurry at every position → u is too close to 45 mm; move the OLED closer to the lens.</div>
+Double image → acrylic too thick, use the 1 mm one. Blurry at every distance → measure the real lens focus (O5).</div>
 </section>
 
 <!-- ================= STEP 13 ================= -->
@@ -857,10 +885,10 @@ Ball → reheat with a touch of flux.</div>
 <h2>Step 14: Enclosure + mount on the glasses <span class="stamp later">LATER</span></h2>
 <p class="goal">Goal: everything inside the 3D-printed housing, clipped to the right temple arm.</p>
 <ol>
-  <li>Measure: temple arm width × height where the clip goes; LiPo, TP4056, ESP32-C3, OLED, mirror thickness.</li>
+  <li>Measure: temple arm width × height where the clip goes; LiPo, TP4056, ESP32-C3, OLED (Step 12 sheet).</li>
   <li>Print <code>hardware/enclosure/stl/test_fit.stl</code> first (college lab). Check the parts fit; tune <code>clr</code> in <code>hud_enclosure.scad</code>.</li>
-  <li>Enclosure v2 (pockets + clip-on mount): plan in <code>docs/handoff/2026-10-29.md</code>. Build it, then print <code>body</code>, <code>lid</code>, <code>lens_plate</code>, <code>clip</code>.</li>
-  <li>Paint the inside matte black. Fit mirror, lens, acrylic. Keep the optics distances from Step 12.</li>
+  <li>Enclosure v3 (no mirror, pockets + clip-on mount): <code>hardware/enclosure/README.md</code>. Update the measured values, rebuild, then print <code>body</code>, <code>lid</code>, <code>lens_plate</code>, <code>clip</code>.</li>
+  <li>Print in matte black (no paint needed). Fit lens + acrylic; OLED in the middle rail slot. Keep the optics distances from Step 12.</li>
   <li>Assembly order and print settings: <code>hardware/enclosure/README.md</code>.</li>
   <li>Charger USB-C and switch must be reachable from outside.</li>
 </ol>
@@ -882,21 +910,21 @@ Glasses on, switch ON, <code>send_test.py</code> word appears sharp in front of 
 <tr><td>5</td><td>Breadboard + jumpers</td><td>No faults (4–6)</td><td class="tick">☑</td><td>after wiring fix</td></tr>
 <tr><td>6</td><td>OLED #1</td><td>Scan 0x3C, HELLO (4)</td><td class="tick">☑</td><td>text + bitmap</td></tr>
 <tr><td>7</td><td>Wi-Fi + UDP</td><td>send_test.py → OLED via IP (5, 6)</td><td class="tick">☑</td><td>10.249.236.231</td></tr>
-<tr><td>8</td><td>TP4056 #1</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☐</td><td>V:</td></tr>
-<tr><td>9</td><td>TP4056 #2</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☐</td><td>V:</td></tr>
-<tr><td>10</td><td>Slide switches ×3</td><td>Middle ↔ side swaps (7)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>11</td><td>Bench supply</td><td>Set 4.20 V / 0.30 A, checked with meter (8)</td><td class="tick">☐</td><td>V:</td></tr>
-<tr><td>12</td><td>LiPo charge</td><td>Bench charge, tapered, not warm (8, when needed)</td><td class="tick">☐</td><td>end V:</td></tr>
+<tr><td>8</td><td>TP4056 #1</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>9</td><td>TP4056 #2</td><td>B+ ≈ 4.2 V, USB only (7)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>10</td><td>Slide switches ×3</td><td>Middle ↔ side swaps (7)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>11</td><td>Bench supply</td><td>Set 4.20 V / 0.30 A, checked with meter (8)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>12</td><td>LiPo charge</td><td>Bench charge, tapered, not warm (8, when needed)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
 <tr><td>13</td><td>LiPo #1</td><td>Volts as received (9a)</td><td class="tick">☑</td><td>3.999 V (2026-10-29)</td></tr>
-<tr><td>14</td><td>LiPo #2</td><td>Volts as received (9a)</td><td class="tick">☐</td><td>V:</td></tr>
-<tr><td>15</td><td>LiPo #1 + TP4056 #1</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
-<tr><td>16</td><td>LiPo #2 + TP4056 #2</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☐</td><td>OUT V:</td></tr>
-<tr><td>17</td><td>Battery power</td><td>READY + send_test.py, switch on/off (10)</td><td class="tick">☑</td><td>READY + IP, words OK; 5V pin 3.967 V; 3V3: · switch:</td></tr>
-<tr><td>18</td><td>Battery life</td><td>Runtime test (10)</td><td class="tick">☐</td><td>hours:</td></tr>
-<tr><td>19</td><td>ESP32-C3 #2</td><td>Blink + serial (11)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>20</td><td>OLED #2</td><td>Scan 0x3C, HELLO (11)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>21</td><td>OLED #1</td><td>Mirror check (11)</td><td class="tick">☐</td><td></td></tr>
-<tr><td>22</td><td>glasses.local</td><td>send_test.py without IP (11)</td><td class="tick">☐</td><td>yes / no</td></tr>
+<tr><td>14</td><td>LiPo #2</td><td>Volts as received (9a)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>15</td><td>LiPo #1 + TP4056 #1</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>16</td><td>LiPo #2 + TP4056 #2</td><td>Soldered, taped, NO-USB tape (9)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>17</td><td>Battery power</td><td>READY + send_test.py, switch on/off (10)</td><td class="tick">☑</td><td>READY + IP, words OK; 5V pin 3.967 V; 3V3 + switch done 2026-10-31</td></tr>
+<tr><td>18</td><td>Battery life</td><td>Runtime test (10)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>19</td><td>ESP32-C3 #2</td><td>Blink + serial (11)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>20</td><td>OLED #2</td><td>Scan 0x3C, HELLO (11)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>21</td><td>OLED #1</td><td>Mirror check (11)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
+<tr><td>22</td><td>glasses.local</td><td>send_test.py without IP (11)</td><td class="tick">☑</td><td>done 2026-10-31</td></tr>
 <tr><td>23</td><td>Optics</td><td>Sharp, right way round (12)</td><td class="tick">☐</td><td>u = &nbsp;&nbsp; mm, MIRROR_X =</td></tr>
 <tr><td>24</td><td>Soldering</td><td>Final build (13)</td><td class="tick">☐</td><td></td></tr>
 <tr><td>25</td><td>Enclosure</td><td>test_fit, print, assemble (14)</td><td class="tick">☐</td><td></td></tr>

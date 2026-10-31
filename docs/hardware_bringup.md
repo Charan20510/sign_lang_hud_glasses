@@ -5,7 +5,7 @@
 Branch: `testout`. Do the steps in order. Each one has a pass/fail check.
 Write your result in the table at the bottom and in today's `docs/handoff/YYYY-MM-DD.md`.
 
-Steps 1–6 ✅ (2026-10-25). Step 10 ✅ runs on battery (2026-10-29). Left: Step 7 USB-only test, Step 9 tidy-up (solder + tape battery joints, tape USB), Step 10 3V3 + switch + runtime. Charging = bench DC supply only (Step 8).
+Steps 1–11 ✅ (done by 2026-10-31). Next: Step 12 optics bench + measurements for printing. Charging = bench DC supply only (Step 8).
 
 **Never plug USB into a TP4056 that has a LiPo on it** (stock board = 1 A, too much for 600 mAh). Never hold battery wires on the pads by hand — solder them (Step 9).
 
@@ -116,12 +116,26 @@ Wiring: `OUT+` → switch middle, switch side → ESP32-C3 **5V**; `OUT−` → 
 ## Step 11 — Leftover checks
 ESP32-C3 #2 `t1_blink`; OLED #2 `t2_i2c_scan` + `t3_oled_hello`; OLED #1 `MIRROR_X 1` mirror check; `send_test.py --text hello` via `glasses.local`.
 
-## Step 12 — Optics bench test (lens + acrylic in hand, mirror still to get)
-1. `t3_oled_hello` on USB. Lens 40 mm from the OLED → big sharp HELLO. Slide OLED ±3 mm for best focus, note u.
-2. Add 1 mm acrylic at 45° behind the lens → text floats in view. Backwards → flip `MIRROR_X`.
-3. When the 25 × 30 mm mirror is cut: fold the path (OLED → mirror 22 mm, mirror → lens 18 mm), repeat.
+## Step 12 — Optics bench test + measurements for printing
+No mirror: OLED (screen down) → lens 22 mm → acrylic 45° 25 mm → eye. Fill-in sheet: [step12_measure.pdf](step12_measure.pdf) (source `docs/guide/step12_measure.html`).
+1. `t3_oled_hello` on USB. Slide the OLED until the text through the lens is sharpest; note u (bench: 22 mm works).
+2. Acrylic at 45° ~25 mm behind the lens → text floats in view. Backwards/upside down → flip `MIRROR_X` / rotation.
+3. Write down every number below; they go into `hardware/enclosure/hud_enclosure.scad` before printing.
 
-**Pass:** sharp text, right way round; u and `MIRROR_X` noted.
+| # | Measure (mm) | Variable |
+|---|---|---|
+| O1 | Best focus u: OLED screen → lens centre | `d_oled_lens = u` (slots at u − 3 / u / u + 3) |
+| O2–O4 | Sharp with acrylic at 25? / `MIRROR_X` / readable in room light? | checks |
+| O5 | Lens real focal length (project a window onto paper) | explains u = 22 |
+| Acrylic | L × W × thickness (width 29–30.4) | `acr_t` |
+| Lens | diameter, centre thickness | `lens_d`, `lens_t` |
+| OLED | PCB W × L × thickness, glass thickness, glass start/end along the PCB | `oled_*`, `oled_glass_x` |
+| TP4056 / ESP32-C3 / switch / LiPo | L × W × H (tallest part) | `tp`, `tp_h`, `esp`, `pcb_t`, `sw_body`, `lipo` |
+| Temple arm | width × height, ~2 cm behind the hinge (measured 7 × 7) | `temple_w`, `temple_h` |
+| Pupil → temple-arm centre | up/down `dv` (+ above), sideways `dh` | `temple_dv`, `temple_dh` (raw values; measured 10, 37) |
+| Frame top rim above pupil | `frame_rim` (measured 13; must be < 26) | check |
+
+**Pass:** sharp text through lens + acrylic, right way round; all numbers written down → rebuild (`sh hardware/enclosure/build.sh`) → print `test_fit.stl` first.
 
 ## Step 13 — Final build: soldering (later)
 Do this once Steps 7, 9–12 pass.
@@ -142,21 +156,21 @@ All tests below use friction-fit headers (no solder) until the final build.
 | # | Part | Test | Result (✅/❌ + note) | Date |
 |---|---|---|---|---|
 | 1 | ESP32-C3 #1 | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V; ✅ blink + serial | 2026-10-25 |
-| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V (blink pending, Step 11) | 2026-10-24 |
-| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | ✅ 0x3C, text + bitmap shown (mirror pending, Step 11) | 2026-10-25 |
-| 4 | OLED #2 | I2C 0x3C, HELLO | | |
-| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | ✅ via IP 10.249.236.231 (glasses.local pending, Step 11) | 2026-10-25 |
-| 6 | TP4056 #1 | B+ ≈ 4.2 V, USB only | | |
-| 7 | TP4056 #2 | B+ ≈ 4.2 V, USB only | | |
-| 8 | Slide switch ×3 | continuity swap | | |
+| 2 | ESP32-C3 #2 (spare) | 5V/3V3 volts, blink + serial | ✅ volts: 5V = 5.162 V, 3V3 = 3.302 V; ✅ blink (Step 11) | 2026-10-24 |
+| 3 | OLED #1 | I2C 0x3C, HELLO, mirror | ✅ 0x3C, text + bitmap shown; ✅ mirror check (Step 11) | 2026-10-25 |
+| 4 | OLED #2 | I2C 0x3C, HELLO | ✅ done | 2026-10-31 |
+| 5 | Wi-Fi + UDP | `send_test.py` text on OLED, IP + glasses.local | ✅ via IP 10.249.236.231; ✅ glasses.local (Step 11) | 2026-10-25 |
+| 6 | TP4056 #1 | B+ ≈ 4.2 V, USB only | ✅ done | 2026-10-31 |
+| 7 | TP4056 #2 | B+ ≈ 4.2 V, USB only | ✅ done | 2026-10-31 |
+| 8 | Slide switch ×3 | continuity swap | ✅ done | 2026-10-31 |
 | 9 | Type-C cable | data (upload works) | ✅ | 2026-10-25 |
 | 10 | Breadboard / jumpers | used in steps 4–6 without faults | ✅ after wiring fix | 2026-10-25 |
-| 11 | Bench supply | 4.20 V / 0.30 A set + checked with meter | | |
-| 12 | LiPo charge | bench charge tapered, end V, not warm (when needed) | | |
+| 11 | Bench supply | 4.20 V / 0.30 A set + checked with meter | ✅ done | 2026-10-31 |
+| 12 | LiPo charge | bench charge tapered, end V, not warm (when needed) | ✅ done | 2026-10-31 |
 | 13 | LiPo #1 | volts as received; soldered, NO-USB tape | ✅ 3.999 V (Rigol DM3058E) — ~80 %, no charge needed | 2026-10-29 |
-| 14 | LiPo #2 | volts as received; soldered, NO-USB tape | | |
-| 15 | Battery power | READY + send_test.py on battery, switch on/off, 3V3 | ✅ READY + IP 10.249.236.231, words from `send_test.py` shown; 5V pin 3.967 V under load (3V3 + switch toggle pending) | 2026-10-29 |
-| 16 | Battery life | runtime (hours) | | |
+| 14 | LiPo #2 | volts as received; soldered, NO-USB tape | ✅ done | 2026-10-31 |
+| 15 | Battery power | READY + send_test.py on battery, switch on/off, 3V3 | ✅ READY + IP 10.249.236.231, words from `send_test.py` shown; 5V pin 3.967 V under load; ✅ 3V3 + switch toggle | 2026-10-29 |
+| 16 | Battery life | runtime (hours) | ✅ done | 2026-10-31 |
 | 17 | Optics | sharp + right way round (u mm, MIRROR_X) | | |
 | 18 | Soldering | final build | | |
 | 19 | Enclosure | test_fit, print, assemble | | |

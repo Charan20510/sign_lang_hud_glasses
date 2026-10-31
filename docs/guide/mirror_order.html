@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mirror Order Sheet</title>
+<!-- Source of docs/mirror_order.pdf + .png. Rebuild with: sh docs/guide/build_pdf.sh -->
+<style>
+  @font-face { font-family: "Space Mono"; font-weight: 400; src: local("Space Mono"), local("SpaceMono-Regular"); }
+  @font-face { font-family: "Space Mono"; font-weight: 700; src: local("Space Mono Bold"), local("SpaceMono-Bold"); }
+  @page { size: A4; margin: 14mm 16mm; }
+  * { box-sizing: border-box; }
+  html, body { background: #fff; }
+  body { font-family: "Space Mono", monospace; font-size: 12px; line-height: 1.45; color: #1d1d1f; margin: 0; }
+  @media screen { body { width: 210mm; padding: 14mm 16mm; } }
+  h1 { font-size: 22px; margin: 0 0 2px; }
+  h3 { font-size: 14px; margin: 12px 0 4px; }
+  .muted { color: #666; }
+  .row { display: flex; gap: 14px; align-items: flex-start; }
+  figure { margin: 6px 0; flex: 1; text-align: center; }
+  figcaption { font-size: 10px; color: #666; }
+  svg text { font-family: "Space Mono", monospace; }
+  .tpl { flex: 0 0 62mm; border: 1.5px solid #1a7f37; background: #eaf7ee; border-radius: 4px; padding: 6px 8px; text-align: center; }
+  .cut { width: 25mm; height: 30mm; border: 1px dashed #111; margin: 6px auto; display: flex; align-items: center; justify-content: center; font-size: 9px; }
+  table { border-collapse: collapse; width: 100%; margin: 6px 0; }
+  th, td { border: 1px solid #999; padding: 3px 6px; text-align: left; vertical-align: top; }
+  th { background: #eef0f3; }
+  td:first-child { font-weight: 700; white-space: nowrap; }
+  .box { border: 1.5px solid #b91c1c; background: #fdecec; border-radius: 4px; padding: 6px 10px; margin: 8px 0; }
+</style>
+</head>
+<body>
+
+<h1>Mirror order: HUD glasses</h1>
+<p class="muted">Show this page to the glass shop · Charan · drawn diagram, not a photo</p>
+
+<div class="row">
+<figure>
+<svg viewBox="0 0 400 230" width="400">
+  <defs>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f6f8"/><stop offset="0.45" stop-color="#c9ced4"/>
+      <stop offset="0.55" stop-color="#e6e9ec"/><stop offset="1" stop-color="#9aa1a8"/>
+    </linearGradient>
+    <marker id="a" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1d1d1f"/></marker>
+  </defs>
+  <!-- front view: 5 px per mm -->
+  <text x="110" y="16" text-anchor="middle" font-size="12" font-weight="700">Front view</text>
+  <rect x="48" y="35" width="125" height="150" fill="url(#silver)" stroke="#555" stroke-width="1.5"/>
+  <path d="M70 60 L95 45 M70 90 L130 55 M80 120 L150 78" stroke="#fff" stroke-width="3" opacity="0.7"/>
+  <text x="110" y="115" text-anchor="middle" font-size="10" fill="#333">silver mirror</text>
+  <line x1="48" y1="200" x2="173" y2="200" stroke="#1d1d1f" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="110" y="218" text-anchor="middle" font-size="12" font-weight="700">25 mm</text>
+  <line x1="190" y1="35" x2="190" y2="185" stroke="#1d1d1f" marker-start="url(#a)" marker-end="url(#a)"/>
+  <text x="198" y="114" font-size="12" font-weight="700">30 mm</text>
+  <!-- side view -->
+  <text x="320" y="16" text-anchor="middle" font-size="12" font-weight="700">Side view</text>
+  <rect x="314" y="35" width="10" height="150" fill="#cfe8e6" stroke="#555"/>
+  <rect x="324" y="35" width="2" height="150" fill="#7a7f85"/>
+  <line x1="300" y1="200" x2="340" y2="200" stroke="#1d1d1f"/>
+  <line x1="314" y1="195" x2="314" y2="205" stroke="#1d1d1f"/><line x1="326" y1="195" x2="326" y2="205" stroke="#1d1d1f"/>
+  <text x="320" y="218" text-anchor="middle" font-size="12" font-weight="700">2 mm</text>
+  <text x="338" y="70" font-size="9">glass</text>
+  <text x="338" y="150" font-size="9">silver</text>
+  <text x="338" y="161" font-size="9">backing</text>
+</svg>
+<figcaption>Flat, plain silver glass mirror. No frame. Drawn 5× real size.</figcaption>
+</figure>
+
+<div class="tpl">
+  <b>True-size template</b>
+  <div class="cut">25 × 30 mm</div>
+  <div style="font-size:10px">Print at <b>100 %</b> (not "fit to page").<br>Check with a ruler: 25 mm wide.</div>
+</div>
+</div>
+
+<h3>What to ask for</h3>
+<table>
+<tr><th style="width:22%">Item</th><th style="width:40%">Value</th><th>Why</th></tr>
+<tr><td>Type</td><td>Plain glass mirror, silver (not tinted / bronze / grey)</td><td>Bright, true reflection</td></tr>
+<tr><td>Size</td><td><b>25 mm × 30 mm</b> (2.5 × 3.0 cm)</td><td>Fits the housing slot</td></tr>
+<tr><td>Tolerance</td><td>±0.5 mm, square 90° corners</td><td>Sits snug at 45°</td></tr>
+<tr><td>Thickness</td><td><b>Thinnest available: 2 mm</b> (not 4–5 mm)</td><td>Thick glass = double image</td></tr>
+<tr><td>Flatness</td><td>Flat, not curved / convex</td><td>Curve stretches the text</td></tr>
+<tr><td>Surface</td><td>No scratches, no bubbles, silver backing intact</td><td>Spots show in the HUD</td></tr>
+<tr><td>Edges</td><td>Lightly smoothed (ground)</td><td>Safe to handle, no chips</td></tr>
+<tr><td>Backing</td><td>No frame, no stand, no glue</td><td>Mounted in the 3D-printed housing</td></tr>
+<tr><td>Quantity</td><td><b>3 pieces</b> (1 + 2 spare)</td><td>Thin glass breaks easily</td></tr>
+<tr><td>Packing</td><td>Wrapped in paper or foam</td><td>Protects the surface</td></tr>
+<tr><td>Price</td><td>About ₹20–50 total</td><td>Fair price check</td></tr>
+</table>
+
+<div class="box"><b>Bonus:</b> ask for a <b>"front-surface mirror"</b> (silver on the front, no double image). Most shops won't have it, and plain 2 mm is fine.</div>
+
+<h3>Check at the counter</h3>
+<ul>
+  <li>Lay each piece on the template: same size, corners square.</li>
+  <li>Hold it near your eye and look at a straight edge: one sharp line, no double edge.</li>
+  <li>Hold it by the edges only.</li>
+</ul>
+
+</body>
+</html>
