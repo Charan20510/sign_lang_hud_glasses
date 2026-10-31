@@ -3,7 +3,7 @@
 Webcam -> MediaPipe (hands + body) -> neural net -> signs -> words -> sentences -> English (Groq)
 -> HTTP server on your Mac -> phone, and UDP -> HUD glasses (ESP32-C3 + OLED, see ../docs/interface.md).
 
-HUD glasses: run.py sends every word and finished sentence to the glasses automatically
+HUD glasses (step-by-step: ../docs/run_guide.md): run.py sends every word and finished sentence to the glasses automatically
 (glasses.py, UDP to glasses.local:4210 from ../config.yaml). Glasses and Mac must be on the same hotspot.
     python run.py --simulate              # fake sentences -> phone + glasses (no camera/model needed)
     python run.py --glasses 192.168.43.57 # use the IP shown on the OLED if glasses.local does not resolve
