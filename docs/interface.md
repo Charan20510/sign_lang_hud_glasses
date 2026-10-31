@@ -5,7 +5,7 @@ Change it only together, and update both sides.
 
 | Side | Owner | Branch |
 |---|---|---|
-| Recognizer app (camera, MediaPipe, model, smoother, sender) | friend | `S1` |
+| Recognizer app (camera, MediaPipe, model, smoother, sender) — `software/`, sender `software/glasses.py` | friend (imported by Charan) | `software` |
 | Glasses (ESP32-C3 + OLED firmware, optics, enclosure) | Charan | `testout` |
 
 ## Network

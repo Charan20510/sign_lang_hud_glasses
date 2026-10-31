@@ -10,3 +10,10 @@ CLAUDE.md
 files/
 
 data.zip
+
+# software/ runtime files (recognizer app)
+.env
+.venv/
+software/model/
+software/mp_models/
+software/transcripts/
