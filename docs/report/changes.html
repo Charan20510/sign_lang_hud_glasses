@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Report Changes</title>
+<!-- Source of docs/report/report_changes.pdf. Rebuild with: sh docs/guide/build_pdf.sh -->
+<style>
+  @font-face { font-family: "Space Mono"; font-weight: 400; src: local("Space Mono"), local("SpaceMono-Regular"); }
+  @font-face { font-family: "Space Mono"; font-weight: 700; src: local("Space Mono Bold"), local("SpaceMono-Bold"); }
+  @page { size: A4; margin: 16mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Space Mono", monospace; font-size: 12px; line-height: 1.5; color: #1d1d1f; margin: 0; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  h2 { font-size: 16px; margin: 16px 0 6px; padding-bottom: 4px; border-bottom: 2px solid #1d1d1f; break-after: avoid; }
+  p { margin: 4px 0; }
+  ul { margin: 4px 0; padding-left: 22px; }
+  li { margin: 2px 0; }
+  code { background: #eef0f3; padding: 0 3px; border-radius: 3px; }
+  table { width: 100%; border-collapse: collapse; margin: 6px 0; break-inside: auto; }
+  tr { break-inside: avoid; }
+  th, td { border: 1px solid #c8c8cc; padding: 3px 6px; text-align: left; vertical-align: top; }
+  th { background: #eef0f3; }
+  pre { font-family: inherit; background: #1d1d1f; color: #e8e8e8; padding: 8px 10px; border-radius: 4px; font-size: 11px; white-space: pre-wrap; }
+  .sub { color: #555; margin-bottom: 10px; }
+  .box { border: 1.5px solid #c2410c; background: #fff3ea; border-radius: 4px; padding: 6px 10px; margin: 8px 0; break-inside: avoid; }
+</style>
+</head>
+<body>
+
+<h1>Project Report: Change Log</h1>
+<p class="sub">File: <code>docs/report/main.tex</code> &rarr; <code>main.pdf</code> &middot; 32 &rarr; 36 pages</p>
+
+<h2>1. Identity details</h2>
+<table>
+  <tr><th>Item</th><th>Before</th><th>After</th></tr>
+  <tr><td>Report type</td><td>Internship report</td><td>Group project report</td></tr>
+  <tr><td>Students</td><td>[STUDENT NAME], [ROLL NUMBER]</td><td>Ayush Verma (230102017), Charan Tej (230104002)</td></tr>
+  <tr><td>Supervisor</td><td>[FACULTY ADVISOR]</td><td>Dr. B. Somaraju, Assistant Professor, Department of ECE (email somaraju@iiitmanipur.ac.in)</td></tr>
+  <tr><td>Course</td><td>none</td><td>Project II (EC4201), 7th Semester</td></tr>
+  <tr><td>Date</td><td>[MONTH, YEAR]</td><td>November, 2026; Place: Senapati, Manipur</td></tr>
+  <tr><td>Voice</td><td>"I / my"</td><td>"we / our" throughout</td></tr>
+</table>
+
+<h2>2. Internship items removed</h2>
+<ul>
+  <li>"Internship Documents" page: removed.</li>
+  <li>Running header "B.Tech Internship Report | Department of ECE | IIIT Senapati, Manipur": removed.</li>
+  <li>Declaration and certificate text "during the internship at [ORGANIZATION NAME]": replaced by the department's project wording.</li>
+  <li>Section 1.2 "Internship Overview" and 1.6 "Scope of the Internship": replaced by project sections.</li>
+  <li>The organization "(in-house project)" line: removed.</li>
+  <li>Check: the word "internship" appears 0 times in <code>main.tex</code> and in the PDF text.</li>
+</ul>
+
+<h2>3. Page format</h2>
+<table>
+  <tr><th>Item</th><th>Before (IIIT template)</th><th>After (Major Project Report)</th></tr>
+  <tr><td>Paper</td><td>US Letter, margins 0.8 in / 1 in</td><td>A4, 1 in all round</td></tr>
+  <tr><td>Font</td><td>Times New Roman 12 pt</td><td>Default LaTeX font (Computer Modern) 12 pt</td></tr>
+  <tr><td>Line spacing</td><td>Single</td><td>1.5 (title page single)</td></tr>
+  <tr><td>Header</td><td>Template text on every page</td><td>None</td></tr>
+  <tr><td>Footer</td><td>"Page N"</td><td>Page number only, centred</td></tr>
+  <tr><td>Page numbers</td><td>Arabic from the cover</td><td>No number on the title page; roman (i, ii, ...) for the front matter; arabic from Chapter 1</td></tr>
+  <tr><td>Chapter title</td><td>"Chapter N" + title, right-aligned</td><td>"CHAPTER N" + UPPERCASE title, centred</td></tr>
+  <tr><td>Appendices</td><td>One page, sub-headings</td><td>"APPENDIX A-D" chapters, listed in Contents</td></tr>
+</table>
+
+<h2>4. Front matter</h2>
+<table>
+  <tr><th>Page</th><th>Change</th></tr>
+  <tr><td>Title page</td><td>Department layout: title, "submitted in partial fulfillment...", Submitted By (both names + roll numbers), 7th Semester, Supervised By, logo, department, institute, date</td></tr>
+  <tr><td>Declaration</td><td>Department's academic-honesty text (plural); two signature blocks; DATE and PLACE</td></tr>
+  <tr><td>Certificate</td><td>Logo + department header, supervisor block with email, "To Whom It May Concern", course Project II (EC4201), supervisor signature, Examiners 1-4 (two per row)</td></tr>
+  <tr><td>Abstract</td><td>Group voice, 3 paragraphs</td></tr>
+  <tr><td>Acknowledgement</td><td>Thanks the supervisor, HoD, Director and faculty; signed by both students</td></tr>
+  <tr><td>Contents</td><td>Now lists the front-matter pages and sub-sections (depth 2)</td></tr>
+  <tr><td>New</td><td>LIST OF ABBREVIATIONS (25 terms) and LIST OF SYMBOLS (9 symbols)</td></tr>
+</table>
+
+<h2>5. Chapter map (old &rarr; new)</h2>
+<table>
+  <tr><th>Old section</th><th>New location</th></tr>
+  <tr><td>1.1 Background</td><td>1.1 Overview</td></tr>
+  <tr><td>1.2 Internship Overview</td><td>1.3 Problem Statement and Key Contributions (new work-division table)</td></tr>
+  <tr><td>1.3 Problem Statement</td><td>1.3 Problem Statement and Key Contributions</td></tr>
+  <tr><td>1.4 Motivation</td><td>1.2 Sign Language Accessibility and Wearable HUDs</td></tr>
+  <tr><td>1.5 Objectives, 1.6 Scope</td><td>1.4 Objectives and Scope</td></tr>
+  <tr><td>(new)</td><td>1.5 Report Organization</td></tr>
+  <tr><td>2.1 Relevant Concepts</td><td>2.3 Theoretical Background (2.3.1-2.3.4)</td></tr>
+  <tr><td>2.2 Existing Technologies</td><td>2.1 Existing Approaches and Limitations</td></tr>
+  <tr><td>2.3 Literature Survey</td><td>2.2 Review of Related Work</td></tr>
+  <tr><td>2.4 Identified Gap</td><td>2.4 Identified Gap and Technical Requirements</td></tr>
+  <tr><td>3.1 Overall Workflow</td><td>3.1 Design Methodology and Implementation Flow</td></tr>
+  <tr><td>3.2 Materials/Tools</td><td>3.2 Hardware and Software Tools</td></tr>
+  <tr><td>3.3 Design Methodology (sub-parts)</td><td>3.3 Electronics, 3.4 Firmware, 3.5 Optics, 3.6 Enclosure, 3.7 Sign-Recognition Software</td></tr>
+  <tr><td>3.4 Procedure</td><td>3.8 Integration and Test Procedure</td></tr>
+  <tr><td>3.5 Week-wise Summary</td><td>3.9 Phase-wise Work Summary</td></tr>
+  <tr><td>4.1-4.5 Results</td><td>4.1 Bring-Up, 4.2 Electrical, 4.3 Display Timing, 4.4 Optics, 4.5 Enclosure, 4.6 Comparison</td></tr>
+  <tr><td>Ch. 5 Challenges and Problem-Solving</td><td>4.7 Challenges and Solutions</td></tr>
+  <tr><td>Ch. 6 Learning Outcomes</td><td>Removed (not in the department format)</td></tr>
+  <tr><td>7.1 Conclusion, 7.2 Key Achievements</td><td>5.1 Conclusion</td></tr>
+  <tr><td>(new)</td><td>5.2 Limitations and Assumptions</td></tr>
+  <tr><td>7.3 Future Scope</td><td>5.3 Future Work</td></tr>
+  <tr><td>Appendices (one page)</td><td>Appendix A Wiring and BOM, B Firmware Excerpt, C UDP Interface and Test Tools, D Bring-Up Test Sketches</td></tr>
+</table>
+
+<h2>6. Unchanged</h2>
+<ul>
+  <li>Title of the work, all measured numbers, equations, tables and results.</li>
+  <li>All 10 figures (TikZ diagrams and OpenSCAD renders) and the 12 references.</li>
+  <li>Short bullet-point style.</li>
+</ul>
+
+<h2>7. Please confirm</h2>
+<div class="box">
+  <ul>
+    <li><b>Course code:</b> Project II (EC4201), 7th Semester (taken from the department's Major Project Report).</li>
+    <li><b>Date:</b> November, 2026.</li>
+    <li><b>Work division:</b> Ayush Verma = sign-recognition software; Charan Tej = hardware, firmware, optics and enclosure (Table 1.1).</li>
+    <li><b>Supervisor designation:</b> Assistant Professor (from rf-ids-report.tex).</li>
+  </ul>
+</div>
+
+<h2>Build</h2>
+<pre>cd docs/report &amp;&amp; tectonic main.tex
+sh docs/guide/build_pdf.sh        # rebuilds this change log too</pre>
+
+</body>
+</html>
