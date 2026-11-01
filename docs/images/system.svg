@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#334155"/>
+    </marker>
+  </defs>
+  <!-- solid card so the diagram reads on light and dark GitHub themes -->
+  <rect x="0" y="0" width="960" height="420" rx="14" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="480" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#0f172a">Sign language → smart-glasses HUD: data flow</text>
+
+  <!-- Row 1: laptop side -->
+  <rect x="24" y="64" width="150" height="96" rx="10" fill="#fef3c7" stroke="#d97706"/>
+  <text x="99" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">Signer</text>
+  <text x="99" y="120" text-anchor="middle" font-size="13" fill="#334155">Indian Sign</text>
+  <text x="99" y="138" text-anchor="middle" font-size="13" fill="#334155">Language (ISL)</text>
+
+  <rect x="214" y="64" width="150" height="96" rx="10" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="289" y="98" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">Camera</text>
+  <text x="289" y="120" text-anchor="middle" font-size="13" fill="#334155">laptop webcam</text>
+  <text x="289" y="138" text-anchor="middle" font-size="13" fill="#334155">(ESP32-CAM: stretch)</text>
+
+  <rect x="404" y="54" width="532" height="116" rx="10" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="670" y="80" text-anchor="middle" font-size="15" font-weight="bold" fill="#0f172a">Laptop · software/run.py</text>
+  <rect x="420" y="94" width="116" height="58" rx="6" fill="#ffffff" stroke="#0284c7"/>
+  <text x="478" y="118" text-anchor="middle" font-size="13" fill="#0f172a">MediaPipe</text>
+  <text x="478" y="136" text-anchor="middle" font-size="12" fill="#334155">hand + body</text>
+  <rect x="552" y="94" width="116" height="58" rx="6" fill="#ffffff" stroke="#0284c7"/>
+  <text x="610" y="118" text-anchor="middle" font-size="13" fill="#0f172a">TCN model</text>
+  <text x="610" y="136" text-anchor="middle" font-size="12" fill="#334155">sign → word</text>
+  <rect x="684" y="94" width="116" height="58" rx="6" fill="#ffffff" stroke="#0284c7"/>
+  <text x="742" y="118" text-anchor="middle" font-size="13" fill="#0f172a">Sentence</text>
+  <text x="742" y="136" text-anchor="middle" font-size="12" fill="#334155">builder</text>
+  <rect x="816" y="94" width="108" height="58" rx="6" fill="#ffffff" stroke="#0284c7"/>
+  <text x="870" y="118" text-anchor="middle" font-size="13" fill="#0f172a">glasses.py</text>
+  <text x="870" y="136" text-anchor="middle" font-size="12" fill="#334155">UDP sender</text>
+
+  <line x1="174" y1="112" x2="210" y2="112" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="364" y1="112" x2="400" y2="112" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="536" y1="123" x2="548" y2="123" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="668" y1="123" x2="680" y2="123" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="800" y1="123" x2="812" y2="123" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- Wi-Fi hop -->
+  <rect x="490" y="188" width="390" height="48" rx="8" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="685" y="208" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Wi-Fi · phone hotspot (2.4 GHz)</text>
+  <text x="685" y="226" text-anchor="middle" font-size="11" font-family="Menlo, monospace" fill="#334155">UDP glasses.local:4210 {"text":"hello","conf":0.92}</text>
+
+  <!-- Row 2: glasses side -->
+  <rect x="24" y="266" width="912" height="132" rx="10" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="44" y="290" font-size="15" font-weight="bold" fill="#0f172a">Glasses · firmware/glasses_display</text>
+
+  <rect x="404" y="302" width="150" height="80" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="479" y="332" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">ESP32-C3</text>
+  <text x="479" y="352" text-anchor="middle" font-size="12" fill="#334155">SuperMini</text>
+  <text x="479" y="370" text-anchor="middle" font-size="12" fill="#334155">parse JSON, draw</text>
+
+  <rect x="594" y="302" width="150" height="80" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="669" y="332" text-anchor="middle" font-size="14" font-weight="bold" fill="#0f172a">0.96" OLED</text>
+  <text x="669" y="352" text-anchor="middle" font-size="12" fill="#334155">SSD1306 128×64</text>
+  <text x="669" y="370" text-anchor="middle" font-size="12" fill="#334155">I2C 0x3C</text>
+
+  <rect x="784" y="302" width="136" height="80" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="852" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Optics</text>
+  <text x="852" y="346" text-anchor="middle" font-size="12" fill="#334155">25 mm lens (u = 22)</text>
+  <text x="852" y="364" text-anchor="middle" font-size="12" fill="#334155">45° acrylic → eye</text>
+
+  <rect x="44" y="302" width="320" height="80" rx="8" fill="#ffffff" stroke="#64748b"/>
+  <text x="204" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#0f172a">Display rules</text>
+  <text x="204" y="346" text-anchor="middle" font-size="12" fill="#334155">word that fits → centred, text size 2</text>
+  <text x="204" y="364" text-anchor="middle" font-size="12" fill="#334155">sentence → scrolls right-to-left 2×, then blank</text>
+
+  <line x1="554" y1="342" x2="590" y2="342" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="744" y1="342" x2="780" y2="342" stroke="#334155" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="404" y1="342" x2="368" y2="342" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- Wi-Fi hop drawn last so it sits on top of the boxes -->
+  <path d="M870,152 L870,188 M490,212 L479,212 L479,298" fill="none" stroke="#16a34a" stroke-width="2.5" stroke-dasharray="7 5" marker-end="url(#arr)"/>
+</svg>
