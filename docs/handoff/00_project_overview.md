@@ -8,18 +8,20 @@ ISL signer in front of me → camera → **laptop** (MediaPipe + PyTorch) recogn
 
 - Me: Charan, final-year B.Tech ECE (VLSI), IIIT Senapati, Manipur. Dev machine: MacBook Air (Apple Silicon).
 - **Ownership (from 2026-10-31):** Charan = hardware + firmware (branch `testout`); friend = all software (branch `S1`). Shared contract: `docs/interface.md`.
+- **Since 2026-11-01:** friend's app imported into `software/` on branch `software` (from github.com/integral-830/sign-inference-bridge); it sends every word + sentence to the glasses over UDP.
 - Style: short, simple key points.
 - Scope: **isolated words** (INCLUDE-50 + my own words), not full sentences.
 
 ## 2. Final architecture
 ```
 [Camera: laptop webcam (now) / ESP32-CAM on glasses (stretch)]
-   → [Laptop: MediaPipe landmarks → normalize → GRU/Transformer → smoother → sentence]
-   → UDP/WebSocket JSON over phone hotspot
-   → [ESP32-C3 SuperMini + SSD1306 OLED → mirror → 25mm lens → 45° acrylic → eye]
+   → [Laptop: software/run.py — MediaPipe landmarks → TCN model → sentence builder → (English)]
+   → UDP JSON {"text","conf"} to glasses.local:4210 over phone hotspot (software/glasses.py)
+   → [ESP32-C3 SuperMini + SSD1306 OLED (firmware/glasses_display) → 25mm lens → 45° acrylic → eye]
 ```
 
 ## 3. Optics design (side view, cm, internal) — drawn in hud_glasses_drawings.pdf
+- **Update 2026-10-31 (enclosure v3.1):** mirror dropped; OLED sits 22 mm from the lens (bench value, ±3 mm focus slots). Numbers below are the original design.
 - OLED → mirror (45°): **2.2** | mirror → lens: **1.8** | total u = **4.0 cm** < f = 4.5 cm
 - Lens → acrylic (45°): **1.5** | eye relief ≈ **2.0**
 - Result: virtual image ≈ 36–38 cm away, ~9× magnified.
@@ -52,23 +54,29 @@ Type-C cable, MB102 830 breadboard, jumper wire set, 12-in-1 soldering kit (with
 - Mirror piece 2.5×2.9 cm — local glass shop (₹10–30), thin glass preferred
 - Glasses frame — my Lenskart computer glasses (mount with zip ties/velcro, no glue; raise OLED contrast because of blue-cut coating)
 
-## 6. Software (friend's part, branch `S1`)
-- Recognizer app (INCLUDE-50 dataset, MediaPipe keypoints, GRU/Transformer, live app) is owned by my friend on `S1`.
-  Removed from `testout` on 2026-10-31; nothing of it is maintained here.
-- Link to the glasses: phone hotspot, UDP JSON `{"text":..,"conf":..}`, mDNS `glasses.local` — full contract in `docs/interface.md`.
-- My test tool for the link: `tools/send_test.py` (no ML).
+## 6. Software (`software/`, branch `software`; friend's code)
+- `python software/run.py --port 9000` → camera + model + HTTP server (phone) + **UDP to the glasses (default)**.
+  `--glasses <IP>` if `glasses.local` fails, `--no-glasses` to turn it off, `--simulate` = fake signer (no camera/model).
+- `software/glasses.py` = UDP sender (`{"text","conf"}`, < 256 bytes, host/port from `config.yaml`); self-check: `python software/glasses.py`.
+- Live run sends each signed word, each spelled word, then the finished sentence (English if `--translate`).
+- Model: `software/model/sign_model.pt` (words, TCN). Training/datasets: `software/RUNBOOK.md`.
+- Root `venv/` has torch, mediapipe, opencv, numpy, pyyaml. Camera preview: 1280×720 + preview-only white balance.
+- Step-by-step: `docs/run_guide.md`. Manual link test: `tools/send_test.py`.
 
 ## 7. Files created so far
 - `CLAUDE.md` — Claude Code project spec (hardware side, rules; gitignored)
 - `docs/interface.md` — app ↔ glasses contract
+- `docs/run_guide.md` — flash → link test → simulate → live camera
+- `firmware/glasses_display/glasses_display.ino` — final receiver: centred size-2 words; sentence scrolls 2× (60 px/s) then blank
+- `software/` — recognizer app (run.py, live_demo.py, glasses.py, RUNBOOK.md)
 - `hud_glasses_drawings.pdf` + 2 PNGs — side view with dimensions, optics math, wiring diagram, cut templates
 
 ## 8. Open to-dos
-1. Hardware bring-up (branch `testout`, `docs/hardware_bringup.md` + PDF, 15 steps): Steps 1–6 ✅ by 2026-10-25. Left: 7 TP4056 + switches (USB only) → 8 bench-supply charge (when < 3.9 V) → 9 solder battery leads + NO-USB tape → 10 ✅ runs on battery 2026-10-29 (3V3, switch, runtime pending) → 11 board #2 / OLED #2 / mirror / glasses.local → 12 optics bench → 13 soldering → 14 enclosure.
-2. LiPo #1 = 3.999 V as received (no charge needed yet). Charge only on the bench supply (Step 8).
-3. Get mirror piece locally.
-4. When LiPo/lens/acrylic arrive: power from battery, build housing, full `glasses_display.ino`.
-5. Software (train/evaluate/live app) — friend, on `S1`. Agree any packet change via `docs/interface.md`.
-6. Later: camera unit, latency measurement, report & viva prep.
+1. Hardware bring-up (`docs/hardware_bringup.md`): Steps 1–11 ✅ (2026-10-31). Next: 12 optics bench + measurements → 13 soldering → 14 enclosure print (`hardware/enclosure`).
+2. LiPos: charge only on the bench supply (4.20 V, 0.30 A, stop ≤ 0.05 A).
+3. glasses_display: NO LINK after 10 s + Wi-Fi auto-reconnect.
+4. Latency measurement (packet in → OLED update) for the report.
+5. Tell friend about `software/`; agree any packet change via `docs/interface.md`; decide when to merge `software` → `testout`/`main`.
+6. Later: camera unit (ESP32-CAM), report & viva prep.
 
 Daily log: see `docs/handoff/README.md`.
