@@ -18,13 +18,14 @@ Final-year semester project (combined CS + ECE).
 2. [Status](#status)
 3. [Hardware](#hardware)
 4. [3D-printed enclosure](#3d-printed-enclosure)
-5. [Setup, step by step](#setup-step-by-step)
-6. [App ↔ glasses interface](#app--glasses-interface)
-7. [Configuration](#configuration)
-8. [Troubleshooting](#troubleshooting)
-9. [Repository layout](#repository-layout)
-10. [Further guides](#further-guides)
-11. [Credits](#credits)
+5. [Engineering drawings](#engineering-drawings)
+6. [Setup, step by step](#setup-step-by-step)
+7. [App ↔ glasses interface](#app--glasses-interface)
+8. [Configuration](#configuration)
+9. [Troubleshooting](#troubleshooting)
+10. [Repository layout](#repository-layout)
+11. [Further guides](#further-guides)
+12. [Credits](#credits)
 
 ---
 
@@ -42,6 +43,8 @@ Final-year semester project (combined CS + ECE).
    right-to-left on one line twice, then the screen goes blank.
 5. **Optics:** OLED (screen down) → **22 mm** → 25 mm lens → **25 mm** → 45° clear acrylic → eye.
    The text appears as a magnified virtual image in front of the wearer.
+
+![Optics: thin-lens ray diagram, u = 22 mm, f ≈ 25 mm, virtual image ≈ 8.3× magnified](docs/images/drawings/optics_raydiagram.svg)
 
 <!-- PHOTO: OLED showing a word on the bench (breadboard setup) -->
 
@@ -92,6 +95,8 @@ Stretch (camera unit): ESP32-CAM (OV3660) + ESP32-CAM-MB, MT3608 boost set to 5.
 | ESP32-C3 `G` | OLED `GND` |
 | ESP32-C3 `GPIO8` | OLED `SDA` |
 | ESP32-C3 `GPIO9` | OLED `SCK` (= SCL) |
+
+![Wiring sheet: pin-level wiring with wire colours, safety notes and measured voltages](docs/images/drawings/wiring_sheet.svg)
 
 > [!WARNING]
 > **Battery safety.** The stock TP4056 charges at 1 A, which is too much for a 600 mAh cell. Never plug
@@ -165,6 +170,40 @@ Assembly steps, cut list and the values still to measure:
 
 <!-- PHOTO: printed enclosure parts -->
 <!-- PHOTO: enclosure clipped on the glasses -->
+
+---
+
+## Engineering drawings
+
+Six hand-drawn-style sheets of the current design (enclosure v3.1). Every number comes from
+`hud_enclosure.scad`, its build output, the STL files or the bench measurements. Rebuild them with
+`python3 docs/images/drawings/make_drawings.py`.
+
+**Sheet 1: display unit, side view to scale.** The light path OLED → 22 mm → lens → 25 mm → 45° acrylic → eye,
+the part positions and the "why these distances" maths.
+
+![Sheet 1: side view of the display unit, to scale](docs/images/drawings/side_view.svg)
+
+**Sheet 2: optics.** Thin-lens ray diagram with the virtual image, and the old v1 design compared with v3.1
+(also shown under [How it works](#how-it-works)).
+
+**Sheet 3: wiring.** Pin-level wiring, safety rules and measured voltages (also shown under [Wiring](#wiring)).
+
+**Sheet 4: clip-on mount, front view.** How the clip reaches the 7 × 7 mm temple arm: dh = 37, dv = 10,
+jaw_drop = 35, and the frame-rim clearance.
+
+![Sheet 4: clip-on mount, front view](docs/images/drawings/glasses_mount.svg)
+
+**Sheet 5: printed parts.** Outer size of each part from its STL, with mass, print time and print settings.
+
+![Sheet 5: 3D-printed parts with sizes](docs/images/drawings/print_parts.svg)
+
+**Sheet 6: what the OLED shows.** Boot, ready, a centred word, a scrolling sentence, blank, plus the scroll timing.
+
+![Sheet 6: OLED screens at 2.5x](docs/images/drawings/oled_screens.svg)
+
+The first concept sheets (v1, superseded: mirror, u = 40 mm, foam board) are kept for reference:
+[`docs/drawings/hud_glasses_drawings_v1.pdf`](docs/drawings/hud_glasses_drawings_v1.pdf).
 
 ---
 
@@ -347,6 +386,8 @@ More: [`docs/run_guide.md`](docs/run_guide.md), [`software/RUNBOOK.md`](software
 │   ├── hardware_bringup.md/.pdf  # step-by-step bring-up guide (Steps 1–14)
 │   ├── step12_measure.pdf      # optics fill-in sheet
 │   ├── images/                 # README diagrams and renders
+│   │   └── drawings/           # 6 engineering sheets (SVG) + make_drawings.py
+│   ├── drawings/               # v1 concept sheets (PDF, superseded)
 │   ├── guide/                  # HTML sources of the PDFs + build_pdf.sh
 │   └── handoff/                # daily project log + project overview
 ├── firmware/

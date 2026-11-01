@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1130" width="1600" height="1130" font-family="Virgil, 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive">
+<defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#1e1e1e" stroke-width="1.6"/></marker><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#c0392b" stroke-width="1.6"/></marker><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#8a7a2a" stroke-width="1.5"/></pattern></defs>
+<rect width="1600" height="1130" fill="#faf8f2"/>
+<text x="800.0" y="48.0" font-size="40" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Sign-Language HUD Glasses  -  Optics (thin-lens ray diagram)</text>
+<text x="800.0" y="86.0" font-size="20" fill="#666" text-anchor="middle" font-weight="normal">Sheet 2 of 6  |  Light path unfolded: the 45 deg acrylic only turns it 90 deg towards the eye  |  mm</text>
+<text x="1570.0" y="1106.0" font-size="18" fill="#666" text-anchor="end" font-weight="normal">Drawn by: Charan  |  ECE, IIIT Senapati, Manipur  |  Enclosure v3.1</text>
+<g filter="url(#rough)">
+<line x1="160.0" y1="600.0" x2="1336.0" y2="600.0" stroke="#666" stroke-width="1.4" stroke-linecap="round" stroke-dasharray="10 6"/>
+<ellipse cx="1000.0" cy="600" rx="14" ry="115.5" fill="#dbe9f7" stroke="#1e1e1e" stroke-width="2.4"/>
+<line x1="907.6" y1="600.0" x2="907.6" y2="558.0" stroke="#3e6bc4" stroke-width="5" stroke-linecap="round"/>
+<line x1="230.0" y1="600.0" x2="230.0" y2="250.0" stroke="#9fb8e6" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 6"/>
+<circle cx="895.0" cy="600" r="5" fill="#1e1e1e"/>
+<circle cx="1105.0" cy="600" r="5" fill="#1e1e1e"/>
+</g>
+<line x1="907.6" y1="558.0" x2="1000.0" y2="558.0" stroke="#c0392b" stroke-width="2.4" stroke-linecap="round"/>
+<line x1="1000.0" y1="558.0" x2="1294.0" y2="675.6" stroke="#c0392b" stroke-width="2.4" stroke-linecap="round" marker-end="url(#ar)"/>
+<line x1="1000.0" y1="558.0" x2="230.0" y2="250.0" stroke="#c0392b" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 6"/>
+<line x1="907.6" y1="558.0" x2="1294.0" y2="733.6" stroke="#c0392b" stroke-width="2.4" stroke-linecap="round" marker-end="url(#ar)"/>
+<line x1="907.6" y1="558.0" x2="230.0" y2="250.0" stroke="#c0392b" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 6"/>
+<ellipse cx="1345.0" cy="590" rx="26" ry="17" fill="white" stroke="#1e1e1e" stroke-width="2.4"/><circle cx="1336.0" cy="590" r="9" fill="#1e1e1e"/>
+<text x="1379.0" y="597.0" font-size="22" fill="#1e1e1e" text-anchor="start" font-weight="normal">EYE</text>
+<text x="895.6" y="579.0" font-size="19" fill="#3e6bc4" text-anchor="end" font-weight="normal">OLED</text>
+<text x="242.0" y="260.0" font-size="19" fill="#1f4fa0" text-anchor="start" font-weight="normal">virtual image (8.3x, upright)</text>
+<text x="895.0" y="630.0" font-size="19" fill="#1e1e1e" text-anchor="middle" font-weight="normal">F</text>
+<text x="1105.0" y="630.0" font-size="19" fill="#1e1e1e" text-anchor="middle" font-weight="normal">F</text>
+<text x="1000.0" y="745.5" font-size="19" fill="#1e1e1e" text-anchor="middle" font-weight="normal">lens</text>
+<line x1="907.6" y1="670.0" x2="1000.0" y2="670.0" stroke="#1e1e1e" stroke-width="1.4" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="917.8" y="658.0" width="72" height="22" fill="#faf8f2"/>
+<text x="953.8" y="676.0" font-size="17" fill="#1e1e1e" text-anchor="middle" font-weight="normal">u = 22</text>
+<line x1="895.0" y1="710.0" x2="1000.0" y2="710.0" stroke="#1e1e1e" stroke-width="1.4" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="911.5" y="698.0" width="72" height="22" fill="#faf8f2"/>
+<text x="947.5" y="716.0" font-size="17" fill="#1e1e1e" text-anchor="middle" font-weight="normal">f ~ 25</text>
+<line x1="230.0" y1="750.0" x2="1000.0" y2="750.0" stroke="#1e1e1e" stroke-width="1.4" marker-start="url(#a)" marker-end="url(#a)"/>
+<rect x="564.0" y="738.0" width="102" height="22" fill="#faf8f2"/>
+<text x="615.0" y="756.0" font-size="17" fill="#1e1e1e" text-anchor="middle" font-weight="normal">|v| ~ 183</text>
+<text x="580.0" y="815.0" font-size="18" fill="#c0392b" text-anchor="middle" font-weight="normal">solid red = real rays, dashed = traced back to the virtual image the eye sees</text>
+<text x="90.0" y="870.0" font-size="18" fill="#1f4fa0" text-anchor="start" font-weight="bold"></text>
+<text x="300.0" y="870.0" font-size="18" fill="#1f4fa0" text-anchor="start" font-weight="bold">v1 concept</text>
+<text x="510.0" y="870.0" font-size="18" fill="#1f4fa0" text-anchor="start" font-weight="bold">v3.1 (built)</text>
+<text x="90.0" y="900.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">mirror</text>
+<text x="300.0" y="900.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">yes, 45 deg</text>
+<text x="510.0" y="900.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">removed</text>
+<text x="90.0" y="930.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">u</text>
+<text x="300.0" y="930.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">40</text>
+<text x="510.0" y="930.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">22 (bench)</text>
+<text x="90.0" y="960.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">f</text>
+<text x="300.0" y="960.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">45 (marking)</text>
+<text x="510.0" y="960.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">~25 (estimate)</text>
+<text x="90.0" y="990.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">v</text>
+<text x="300.0" y="990.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">-360</text>
+<text x="510.0" y="990.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">~-183</text>
+<text x="90.0" y="1020.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">m</text>
+<text x="300.0" y="1020.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">9x</text>
+<text x="510.0" y="1020.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">~8.3x</text>
+<text x="90.0" y="1050.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">body</text>
+<text x="300.0" y="1050.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">foam board</text>
+<text x="510.0" y="1050.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">3D-printed PLA</text>
+<g filter="url(#rough)"><rect x="70.0" y="840.0" width="640.0" height="235.0" rx="8" fill="none" stroke="#1e1e1e" stroke-width="2"/></g>
+<rect x="780.0" y="840.0" width="790.0" height="235.0" rx="10" fill="#fffdf8" stroke="#1e1e1e" stroke-width="2.2"/>
+<text x="1175.0" y="880.0" font-size="26" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Thin-lens equation</text>
+<text x="808.0" y="925.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">1/u + 1/v = 1/f   (real-is-positive),   m = -v/u</text>
+<text x="808.0" y="955.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">u &lt; f  ->  v &lt; 0: virtual, upright, magnified</text>
+<text x="808.0" y="985.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">The bench focus (u = 22) shows the real f is ~25,</text>
+<text x="808.0" y="1015.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">not the marked 45: so the mirror path was dropped.</text>
+</svg>

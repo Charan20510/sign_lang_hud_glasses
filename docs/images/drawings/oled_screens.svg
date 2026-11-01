@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1130" width="1600" height="1130" font-family="Virgil, 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive">
+<defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#1e1e1e" stroke-width="1.6"/></marker><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#c0392b" stroke-width="1.6"/></marker><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#8a7a2a" stroke-width="1.5"/></pattern></defs>
+<rect width="1600" height="1130" fill="#faf8f2"/>
+<text x="800.0" y="48.0" font-size="40" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Sign-Language HUD Glasses  -  What the OLED Shows</text>
+<text x="800.0" y="86.0" font-size="20" fill="#666" text-anchor="middle" font-weight="normal">Sheet 6 of 6  |  128 x 64 px screen, drawn 2.5x  |  firmware/glasses_display</text>
+<text x="1570.0" y="1106.0" font-size="18" fill="#666" text-anchor="end" font-weight="normal">Drawn by: Charan  |  ECE, IIIT Senapati, Manipur  |  Enclosure v3.1</text>
+<g filter="url(#rough)"><rect x="76.0" y="186.0" width="348.0" height="188.0" rx="10" fill="#2a2f3a" stroke="#1e1e1e" stroke-width="2.4"/></g>
+<rect x="90.0" y="200.0" width="320.0" height="160.0" rx="0" fill="#05070c" stroke="#05070c" stroke-width="1"/>
+<svg x="90" y="200" width="320.0" height="160.0">
+<text x="160.0" y="75.0" font-family="Menlo, Consolas, monospace" font-size="50.0" fill="#cfe8ff" text-anchor="middle">WIFI...</text>
+<text x="160.0" y="117.5" font-family="Menlo, Consolas, monospace" font-size="25.0" fill="#cfe8ff" text-anchor="middle">&lt;hotspot name&gt;</text>
+</svg>
+<text x="250.0" y="170.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">1. Boot</text>
+<text x="250.0" y="408.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">joining the 2.4 GHz hotspot</text>
+<g filter="url(#rough)"><rect x="611.0" y="186.0" width="348.0" height="188.0" rx="10" fill="#2a2f3a" stroke="#1e1e1e" stroke-width="2.4"/></g>
+<rect x="625.0" y="200.0" width="320.0" height="160.0" rx="0" fill="#05070c" stroke="#05070c" stroke-width="1"/>
+<svg x="625" y="200" width="320.0" height="160.0">
+<text x="160.0" y="75.0" font-family="Menlo, Consolas, monospace" font-size="50.0" fill="#cfe8ff" text-anchor="middle">READY</text>
+<text x="160.0" y="117.5" font-family="Menlo, Consolas, monospace" font-size="25.0" fill="#cfe8ff" text-anchor="middle">192.168.43.57</text>
+</svg>
+<text x="785.0" y="170.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">2. Ready</text>
+<text x="785.0" y="408.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">IP shown; also reachable as</text>
+<text x="785.0" y="432.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">glasses.local, UDP port 4210</text>
+<g filter="url(#rough)"><rect x="1146.0" y="186.0" width="348.0" height="188.0" rx="10" fill="#2a2f3a" stroke="#1e1e1e" stroke-width="2.4"/></g>
+<rect x="1160.0" y="200.0" width="320.0" height="160.0" rx="0" fill="#05070c" stroke="#05070c" stroke-width="1"/>
+<svg x="1160" y="200" width="320.0" height="160.0">
+<text x="160.0" y="95.0" font-family="Menlo, Consolas, monospace" font-size="50.0" fill="#cfe8ff" text-anchor="middle">HELLO</text>
+</svg>
+<text x="1320.0" y="170.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">3. A word (fits 128 px)</text>
+<text x="1320.0" y="408.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">size 2, centred</text>
+<text x="1320.0" y="432.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">&lt;= 10 characters</text>
+<g filter="url(#rough)"><rect x="76.0" y="626.0" width="348.0" height="188.0" rx="10" fill="#2a2f3a" stroke="#1e1e1e" stroke-width="2.4"/></g>
+<rect x="90.0" y="640.0" width="320.0" height="160.0" rx="0" fill="#05070c" stroke="#05070c" stroke-width="1"/>
+<svg x="90" y="640" width="320.0" height="160.0">
+<text x="100.0" y="95.0" font-family="Menlo, Consolas, monospace" font-size="50.0" fill="#cfe8ff" text-anchor="start">It is hot to</text>
+</svg>
+<text x="250.0" y="610.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">4. A sentence (wider than 128 px)</text>
+<text x="250.0" y="848.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">scrolls right -&gt; left at 60 px/s</text>
+<text x="250.0" y="872.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">2 passes, new packet interrupts</text>
+<line x1="365.0" y1="775.0" x2="165.0" y2="775.0" stroke="#c0392b" stroke-width="3" stroke-linecap="round" marker-end="url(#ar)"/>
+<g filter="url(#rough)"><rect x="611.0" y="626.0" width="348.0" height="188.0" rx="10" fill="#2a2f3a" stroke="#1e1e1e" stroke-width="2.4"/></g>
+<rect x="625.0" y="640.0" width="320.0" height="160.0" rx="0" fill="#05070c" stroke="#05070c" stroke-width="1"/>
+<svg x="625" y="640" width="320.0" height="160.0">
+</svg>
+<text x="785.0" y="610.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">5. After 2 passes</text>
+<text x="785.0" y="848.0" font-size="17" fill="#1f4fa0" text-anchor="middle" font-weight="normal">blank until the next packet</text>
+<rect x="1146.0" y="588.0" width="348.0" height="400.0" rx="10" fill="#fffdf8" stroke="#1e1e1e" stroke-width="2.2"/>
+<text x="1320.0" y="628.0" font-size="26" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Timing</text>
+<text x="1174.0" y="673.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">one pass = (12 n + 128) / 60 s</text>
+<text x="1174.0" y="705.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">n = characters, at size 2</text>
+<text x="1174.0" y="737.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal"></text>
+<text x="1174.0" y="769.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">"I am going to school."</text>
+<text x="1174.0" y="801.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">n = 21: 2 passes = 12.67 s</text>
+<text x="1174.0" y="833.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">+ 2 s word gap = 14.67 s</text>
+<text x="1174.0" y="865.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">measured: 14.6 s</text>
+<text x="800.0" y="1030.0" font-size="19" fill="#666" text-anchor="middle" font-weight="normal">Through the HUD optics the text can look mirrored: set MIRROR_X / FLIP_Y to 1 in the sketch.</text>
+</svg>

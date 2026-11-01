@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1130" width="1600" height="1130" font-family="Virgil, 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive">
+<defs><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.2"/></filter><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#1e1e1e" stroke-width="1.6"/></marker><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9" fill="none" stroke="#c0392b" stroke-width="1.6"/></marker><pattern id="hatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#8a7a2a" stroke-width="1.5"/></pattern></defs>
+<rect width="1600" height="1130" fill="#faf8f2"/>
+<text x="800.0" y="48.0" font-size="40" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Sign-Language HUD Glasses  -  Wiring</text>
+<text x="800.0" y="86.0" font-size="20" fill="#666" text-anchor="middle" font-weight="normal">Sheet 3 of 6  |  Display unit  |  red = +, black = GND, yellow = SCL, green = SDA</text>
+<text x="1570.0" y="1106.0" font-size="18" fill="#666" text-anchor="end" font-weight="normal">Drawn by: Charan  |  ECE, IIIT Senapati, Manipur  |  Enclosure v3.1</text>
+<g filter="url(#rough)">
+<rect x="80.0" y="290.0" width="160.0" height="150.0" rx="0" fill="#f5e6a8" stroke="#1e1e1e" stroke-width="2.2"/>
+<rect x="370.0" y="240.0" width="200.0" height="240.0" rx="0" fill="#f3d9bf" stroke="#1e1e1e" stroke-width="2.2"/>
+<rect x="660.0" y="262.0" width="95.0" height="36.0" rx="0" fill="#dddddd" stroke="#1e1e1e" stroke-width="2.2"/>
+<rect x="860.0" y="200.0" width="250.0" height="310.0" rx="0" fill="#d5e8d4" stroke="#1e1e1e" stroke-width="2.2"/>
+<rect x="1310.0" y="220.0" width="190.0" height="240.0" rx="0" fill="#dbe6f5" stroke="#1e1e1e" stroke-width="2.2"/>
+<polyline points="240.0,340.0 305.0,340.0 305.0,320.0 370.0,320.0" fill="none" stroke="#c0392b" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="240" cy="340" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="370" cy="320" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="240.0,400.0 305.0,400.0 305.0,400.0 370.0,400.0" fill="none" stroke="#1e1e1e" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="240" cy="400" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="370" cy="400" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="570.0,320.0 615.0,320.0 615.0,280.0 660.0,280.0" fill="none" stroke="#c0392b" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="570" cy="320" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="660" cy="280" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="755.0,280.0 807.5,280.0 807.5,280.0 860.0,280.0" fill="none" stroke="#c0392b" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="755" cy="280" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="860" cy="280" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="570.0,400.0 715.0,400.0 715.0,345.0 860.0,345.0" fill="none" stroke="#1e1e1e" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="570" cy="400" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="860" cy="345" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="1110.0,260.0 1210.0,260.0 1210.0,260.0 1310.0,260.0" fill="none" stroke="#c0392b" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="1110" cy="260" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="1310" cy="260" r="5" fill="#c0392b" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="1110.0,315.0 1210.0,315.0 1210.0,315.0 1310.0,315.0" fill="none" stroke="#1e1e1e" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="1110" cy="315" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="1310" cy="315" r="5" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="1110.0,370.0 1210.0,370.0 1210.0,370.0 1310.0,370.0" fill="none" stroke="#e0a020" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="1110" cy="370" r="5" fill="#e0a020" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="1310" cy="370" r="5" fill="#e0a020" stroke="#1e1e1e" stroke-width="1.2"/>
+<polyline points="1110.0,425.0 1210.0,425.0 1210.0,425.0 1310.0,425.0" fill="none" stroke="#2f8a3a" stroke-width="3.2" stroke-linejoin="round"/>
+<circle cx="1110" cy="425" r="5" fill="#2f8a3a" stroke="#1e1e1e" stroke-width="1.2"/>
+<circle cx="1310" cy="425" r="5" fill="#2f8a3a" stroke="#1e1e1e" stroke-width="1.2"/>
+</g>
+<text x="160.0" y="252.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">LiPo 3.7 V 600 mAh</text>
+<text x="160.0" y="277.0" font-size="17" fill="#666" text-anchor="middle" font-weight="normal">(602030)</text>
+<text x="228.0" y="346.0" font-size="17" fill="#c0392b" text-anchor="end" font-weight="normal">+ red</text>
+<text x="228.0" y="406.0" font-size="17" fill="#1e1e1e" text-anchor="end" font-weight="normal">- black</text>
+<text x="470.0" y="225.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">TP4056 Type-C</text>
+<text x="470.0" y="505.0" font-size="17" fill="#c0392b" text-anchor="middle" font-weight="normal">USB-C taped "NO USB"</text>
+<text x="382.0" y="326.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">B+</text>
+<text x="382.0" y="406.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">B-</text>
+<text x="558.0" y="326.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">OUT+</text>
+<text x="558.0" y="406.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">OUT-</text>
+<text x="707.0" y="250.0" font-size="18" fill="#1e1e1e" text-anchor="middle" font-weight="normal">slide switch</text>
+<text x="985.0" y="185.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">ESP32-C3 SuperMini</text>
+<text x="872.0" y="286.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">5V</text>
+<text x="872.0" y="351.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">G</text>
+<text x="1098.0" y="266.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">3V3</text>
+<text x="1098.0" y="321.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">G</text>
+<text x="1098.0" y="376.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">GPIO9 (SCL)</text>
+<text x="1098.0" y="431.0" font-size="18" fill="#1e1e1e" text-anchor="end" font-weight="normal">GPIO8 (SDA)</text>
+<text x="1405.0" y="205.0" font-size="21" fill="#1e1e1e" text-anchor="middle" font-weight="normal">0.96" OLED (SSD1306)</text>
+<text x="1322.0" y="266.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">VDD</text>
+<text x="1322.0" y="321.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">GND</text>
+<text x="1322.0" y="376.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">SCK</text>
+<text x="1322.0" y="431.0" font-size="18" fill="#1e1e1e" text-anchor="start" font-weight="normal">SDA</text>
+<text x="80.0" y="575.0" font-size="19" fill="#1f4fa0" text-anchor="start" font-weight="normal">Power: LiPo -> TP4056 (charge + protection) -> switch -> ESP32-C3 5V pin (on-board 3.3 V regulator)  |  OLED on I2C, address 0x3C</text>
+<rect x="80.0" y="630.0" width="690.0" height="420.0" rx="10" fill="#fffdf8" stroke="#1e1e1e" stroke-width="2.2"/>
+<text x="425.0" y="670.0" font-size="26" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Safety (LiPo charging)</text>
+<text x="108.0" y="715.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">- Charge ONLY from a bench supply on B+ / B-:</text>
+<text x="108.0" y="751.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">  4.20 V, 0.30 A limit, stop at &lt;= 0.05 A.</text>
+<text x="108.0" y="787.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">- Stock TP4056 charges at 1 A = 1.7C: too much</text>
+<text x="108.0" y="823.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">  for 600 mAh, so its USB port is taped.</text>
+<text x="108.0" y="859.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">- Never plug the ESP32 USB-C while the switch</text>
+<text x="108.0" y="895.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">  is ON.</text>
+<text x="108.0" y="931.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">- Solder battery leads one at a time; tape.</text>
+<rect x="830.0" y="630.0" width="740.0" height="420.0" rx="10" fill="#fffdf8" stroke="#1e1e1e" stroke-width="2.2"/>
+<text x="1200.0" y="670.0" font-size="26" fill="#1e1e1e" text-anchor="middle" font-weight="normal">Measured (Rigol DM3058E)</text>
+<text x="858.0" y="715.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">ESP32-C3 5V pin, on USB ........ 5.162 V</text>
+<text x="858.0" y="751.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">ESP32-C3 3V3 pin, on USB ....... 3.302 V</text>
+<text x="858.0" y="787.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">LiPo #1 as received ............ 3.999 V</text>
+<text x="858.0" y="823.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">5V pin on battery, under load .. 3.967 V</text>
+<text x="858.0" y="859.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal"></text>
+<text x="858.0" y="895.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">On battery the 5V pin reads the cell voltage;</text>
+<text x="858.0" y="931.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">3V3 stays regulated.</text>
+<text x="858.0" y="967.0" font-size="19" fill="#1e1e1e" text-anchor="start" font-weight="normal">I2C scan: OLED found at 0x3C (both OLEDs).</text>
+</svg>
