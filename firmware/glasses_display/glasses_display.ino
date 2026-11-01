@@ -1,4 +1,6 @@
-// Glasses display — receives words/sentences over UDP and shows them centred on the OLED.
+// Glasses display — receives words/sentences over UDP and shows them on the OLED.
+// A word that fits is shown big (size 2) in the centre; longer text (a sentence) scrolls right-to-left
+// on one line and keeps looping until the next packet arrives.
 // Packet (docs/interface.md): {"text": "hello", "conf": 0.92}  on UDP port 4210, mDNS name glasses.local.
 // 1. Copy secrets.h from ../tests/t4_wifi_udp/ (or secrets.h.example -> secrets.h), 2.4 GHz hotspot.
 // 2. Board: ESP32C3 Dev Module, USB CDC On Boot: Enabled. Upload.
@@ -15,6 +17,8 @@
 
 #define MIRROR_X 0                // 1 = flip left/right (if the HUD optics mirror the text)
 #define FLIP_Y   0                // 1 = flip upside down
+#define SCROLL_PX_PER_S 60        // sentence scroll speed; must match SCROLL_PX_PER_S in software/run.py
+#define FRAME_MS        20        // redraw interval while scrolling
 
 const int SDA_PIN = 8;
 const int SCL_PIN = 9;
@@ -24,6 +28,11 @@ const int UDP_PORT = 4210;        // must match network.udp_port in config.yaml
 Adafruit_SSD1306 display(128, 64, &Wire, -1);
 WiFiUDP udp;
 char packet[256];
+
+String scrollText = "";           // text being scrolled ("" = nothing scrolling)
+int scrollW = 0;                  // its width in pixels at text size 2
+unsigned long scrollStart = 0;    // millis() when the scroll started
+unsigned long lastFrame = 0;      // millis() of the last scroll redraw
 
 // Print one line centred left-right at height y. Text size 1 char = 6x8 px, size 2 = 12x16 px.
 void drawCentered(const String &line, int size, int y) {
@@ -35,59 +44,35 @@ void drawCentered(const String &line, int size, int y) {
   display.print(line);
 }
 
-// Word-wrap text into lines of at most `cols` characters.
-// Returns the number of lines, or 0 if it needs more than maxLines (lines[] then holds the first maxLines).
-int wrap(const String &text, int cols, String lines[], int maxLines) {
-  int n = 0;
-  String line = "";
-  int i = 0;
-  while (i < (int)text.length()) {
-    int sp = text.indexOf(' ', i);
-    if (sp < 0) sp = text.length();
-    String word = text.substring(i, sp);
-    i = sp + 1;
-    if (word.length() == 0) continue;
-    while ((int)word.length() > cols) {        // word longer than a line: cut it
-      if (line.length()) {
-        if (n == maxLines) return 0;
-        lines[n++] = line;
-        line = "";
-      }
-      if (n == maxLines) return 0;
-      lines[n++] = word.substring(0, cols);
-      word = word.substring(cols);
-    }
-    if (line.length() == 0) {
-      line = word;
-    } else if ((int)(line.length() + 1 + word.length()) <= cols) {
-      line += " " + word;
-    } else {
-      if (n == maxLines) return 0;
-      lines[n++] = line;
-      line = word;
-    }
+// New text: fits on the screen -> static in the centre; wider than the screen -> start scrolling.
+void showText(const String &text) {
+  int16_t x1, y1;
+  uint16_t w, h;
+  display.setTextSize(2);
+  display.getTextBounds(text, 0, 0, &x1, &y1, &w, &h);
+  if (w <= display.width()) {
+    scrollText = "";
+    display.clearDisplay();
+    drawCentered(text, 2, (display.height() - 16) / 2);
+    display.display();
+  } else {
+    scrollText = text;
+    scrollW = w;
+    scrollStart = millis();
+    lastFrame = 0;                               // draw the first frame right away
   }
-  if (line.length()) {
-    if (n == maxLines) return 0;
-    lines[n++] = line;
-  }
-  return n;
 }
 
-// Show text in the middle of the screen: size 2 (10 chars x 4 lines) if it fits, else size 1 (21 x 8).
-void showCentered(const String &text) {
-  String lines[8];
-  int size = 2;
-  int n = wrap(text, 10, lines, 4);
-  if (n == 0) {
-    size = 1;
-    n = wrap(text, 21, lines, 8);
-    if (n == 0) n = 8;                         // still too long: show the first 8 lines
-  }
-  int lineH = 8 * size;
-  int y = (display.height() - n * lineH) / 2;
+// One scroll frame. The position comes from the time since the start, so the speed stays the same
+// however long a redraw takes: text enters at the right edge, moves left, restarts once fully gone.
+// ponytail: (elapsed * 60) overflows after ~20 h of one sentence; only causes one jump in position.
+void scrollFrame() {
+  unsigned long moved = (millis() - scrollStart) * SCROLL_PX_PER_S / 1000;
+  int x = display.width() - (int)(moved % (scrollW + display.width()));
   display.clearDisplay();
-  for (int k = 0; k < n; k++) drawCentered(lines[k], size, y + k * lineH);
+  display.setTextSize(2);
+  display.setCursor(x, (display.height() - 16) / 2);
+  display.print(scrollText);
   display.display();
 }
 
@@ -116,7 +101,7 @@ void setup() {
   if (MIRROR_X) display.ssd1306_command(0xA0);   // segment remap off -> flips left/right
   if (FLIP_Y)   display.ssd1306_command(0xC0);   // COM scan normal -> flips upside down
   display.setTextColor(SSD1306_WHITE);
-  display.setTextWrap(false);                    // wrap() does the line breaks
+  display.setTextWrap(false);                    // long text runs off the edge (scrolls) instead of wrapping
   showStatus("WIFI...", WIFI_SSID);
 
   WiFi.mode(WIFI_STA);
@@ -139,6 +124,10 @@ void loop() {
     len = udp.read(packet, sizeof(packet) - 1);
     packet[len] = '\0';
     Serial.printf("got: %s\n", packet);
-    showCentered(jsonText(String(packet)));
+    showText(jsonText(String(packet)));
+  }
+  if (scrollText.length() && millis() - lastFrame >= FRAME_MS) {
+    lastFrame = millis();
+    scrollFrame();
   }
 }
