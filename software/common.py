@@ -301,7 +301,8 @@ def pretty_label(name):
 
 
 # -------------------------------------------------------------------------------- camera
-def open_camera(index=0, width=640, height=480):
+def open_camera(index=0, width=1280, height=720):
+    # 720p: sharper preview; features are aspect-corrected (pack_frame), so the model does not care
     cap = cv2.VideoCapture(index, cv2.CAP_AVFOUNDATION) if sys.platform == "darwin" else cv2.VideoCapture(index)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -310,6 +311,15 @@ def open_camera(index=0, width=640, height=480):
             "Could not open the camera. On macOS: System Settings > Privacy & Security > Camera, "
             "allow your Terminal / IDE, then reopen it. Try --camera 1 if you have several cameras.")
     return cap
+
+
+def white_balance(frame):
+    """Gray-world white balance for the PREVIEW only: scale B, G, R so their averages match.
+    Removes the yellow cast of warm room light. Gains are clipped so a face filling the frame
+    does not turn blue. Recognition uses the raw frame, not this."""
+    means = frame[::8, ::8].reshape(-1, 3).mean(axis=0)   # every 8th pixel is plenty for an average
+    gains = np.clip(means.mean() / np.maximum(means, 1.0), 0.7, 1.5)
+    return cv2.multiply(frame, (*gains, 0.0))      # per-channel scale, saturates at 255
 
 
 class CameraStream:

@@ -34,7 +34,7 @@ import numpy as np
 import torch
 
 from common import (IDLE_NAMES, CameraStream, Extractor, draw_landmarks, hands_present, now, open_camera,
-                    sample_window)
+                    sample_window, white_balance)
 from fusion import arbitrate, detect_role, window_motion
 from glasses import Glasses
 from model import build_model
@@ -258,8 +258,10 @@ def main():
             ms_avg = 0.9 * ms_avg + 0.1 * (now() - tp) * 1000 if ms_avg else (now() - tp) * 1000
 
             if not args.no_window:
-                draw_landmarks(frame, det)
-                view = frame if video else cv2.flip(frame, 1)
+                view = white_balance(frame)        # preview colours only; recognition used the raw frame
+                draw_landmarks(view, det)
+                if not video:
+                    view = cv2.flip(view, 1)
                 h, w = view.shape[:2]
                 top = f"{shown[0]} {shown[1] * 100:.0f}%" if shown[0] else "..."
                 if len(modes) > 1 and shown[0]:

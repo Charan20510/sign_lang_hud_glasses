@@ -19,7 +19,7 @@ import cv2
 import numpy as np
 
 from common import (SEQ_LEN, IDLE_NAMES, Extractor, draw_landmarks, frame_is_black, hands_present,
-                    open_camera, resample, sample_window, show_message)
+                    open_camera, resample, sample_window, show_message, white_balance)
 
 
 def main():
@@ -91,8 +91,9 @@ def main():
                     else:
                         msg = "all labels done - press q"
 
-        draw_landmarks(frame, det)
-        view = cv2.flip(frame, 1)
+        view = white_balance(frame)            # preview colours only; the recording used the raw frame
+        draw_landmarks(view, det)
+        view = cv2.flip(view, 1)
         label = labels[li]
         status = state.upper() + (f" {max(0.0, t_go - t):.1f}s" if state == "countdown" else "")
         cv2.putText(view, f"{label}  {counts[label]}/{args.samples}", (10, 30),
