@@ -24,8 +24,8 @@ Short version. Do the steps in order; each one proves one more link.
   python software/run.py --simulate
   ```
 - Pass: each word in the middle of the OLED, big (size 2), 2 s apart — `IT`, `IS`, `HOT`, `TODAY` —
-  then the full sentence `It is hot today.` scrolling right-to-left on one line, looping until the next word.
-- Scroll speed: `SCROLL_PX_PER_S` in `glasses_display.ino` (same value in `software/run.py`).
+  then the full sentence `It is hot today.` scrolling right-to-left on one line, 2 times, then the screen goes blank.
+- Scroll speed / count: `SCROLL_PX_PER_S`, `SCROLL_PASSES` in `glasses_display.ino` (same values in `software/run.py`).
 - `The HTTP server did not start` → port 8000 is busy (e.g. another app): add `--port 9000`.
 - Terminal prints `[glasses] sending to glasses.local = <IP>:4210`. Ctrl+C stops it.
 

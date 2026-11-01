@@ -136,6 +136,7 @@ SIM = [("ME SCHOOL GO", "I am going to school."), ("YOU NAME WHAT", "What is you
 
 WORD_GAP_S = 2.0   # seconds between simulated words (and before the full sentence)
 SCROLL_PX_PER_S = 60   # must match SCROLL_PX_PER_S in firmware/glasses_display/glasses_display.ino
+SCROLL_PASSES = 2      # must match SCROLL_PASSES in the firmware (sentence scrolls twice, then blank)
 
 
 def scroll_seconds(text):
@@ -160,7 +161,7 @@ def simulate(store, glasses=None):
             glasses.send(english)
         item = store.add(gloss, english)
         print(f"   [sim] stored #{item['id']}: {item['text']}", flush=True)
-        time.sleep(max(3, scroll_seconds(english)))   # let the sentence scroll past at least once
+        time.sleep(max(3, SCROLL_PASSES * scroll_seconds(english)))   # let both scroll passes finish
         i += 1
 
 

@@ -1,6 +1,6 @@
 // Glasses display — receives words/sentences over UDP and shows them on the OLED.
 // A word that fits is shown big (size 2) in the centre; longer text (a sentence) scrolls right-to-left
-// on one line and keeps looping until the next packet arrives.
+// on one line SCROLL_PASSES times, then the screen goes blank (a new packet interrupts at any time).
 // Packet (docs/interface.md): {"text": "hello", "conf": 0.92}  on UDP port 4210, mDNS name glasses.local.
 // 1. Copy secrets.h from ../tests/t4_wifi_udp/ (or secrets.h.example -> secrets.h), 2.4 GHz hotspot.
 // 2. Board: ESP32C3 Dev Module, USB CDC On Boot: Enabled. Upload.
@@ -19,6 +19,7 @@
 #define FLIP_Y   0                // 1 = flip upside down
 #define SCROLL_PX_PER_S 60        // sentence scroll speed; must match SCROLL_PX_PER_S in software/run.py
 #define FRAME_MS        20        // redraw interval while scrolling
+#define SCROLL_PASSES   2         // scroll the sentence this many times, then blank; must match software/run.py
 
 const int SDA_PIN = 8;
 const int SCL_PIN = 9;
@@ -65,10 +66,17 @@ void showText(const String &text) {
 
 // One scroll frame. The position comes from the time since the start, so the speed stays the same
 // however long a redraw takes: text enters at the right edge, moves left, restarts once fully gone.
-// ponytail: (elapsed * 60) overflows after ~20 h of one sentence; only causes one jump in position.
+// After SCROLL_PASSES passes the screen is cleared and scrolling stops.
 void scrollFrame() {
   unsigned long moved = (millis() - scrollStart) * SCROLL_PX_PER_S / 1000;
-  int x = display.width() - (int)(moved % (scrollW + display.width()));
+  unsigned long pass = scrollW + display.width();      // pixels for one full pass
+  if (moved / pass >= SCROLL_PASSES) {
+    scrollText = "";                                   // done: blank screen until the next packet
+    display.clearDisplay();
+    display.display();
+    return;
+  }
+  int x = display.width() - (int)(moved % pass);
   display.clearDisplay();
   display.setTextSize(2);
   display.setCursor(x, (display.height() - 16) / 2);
